@@ -20,4 +20,5 @@
     </GridPane>
 
     <TableView fx:id="computerTable" GridPane.columnIndex="0" GridPane.rowIndex="1"></TableView>
+    <Button fx:id="addNewRow" GridPane.columnIndex="0" GridPane.rowIndex="2"></Button>
 </GridPane>

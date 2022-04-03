@@ -157,4 +157,22 @@ public class Computer {
                 ", recorder='" + recorder + '\'' +
                 '}';
     }
+
+    public String toFile() {
+        return manufacturer + ";"
+                + screenSize + ";"
+                + resolution + ";"
+                + matrixTexture + ";"
+                + packaging + ";"
+                + processor + ";"
+                + coreCount + ";"
+                + processorSpeed + ";"
+                + ramSize + ";"
+                + driveSize + ";"
+                + driveType + ";"
+                + graphics + ";"
+                + videoMemory + ";"
+                + os + ";"
+                + recorder + ";\n";
+    }
 }

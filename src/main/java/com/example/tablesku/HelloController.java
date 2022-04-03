@@ -3,21 +3,22 @@ package com.example.tablesku;
 import com.example.tablesku.entity.Computer;
 import com.example.tablesku.file.ClassReader;
 import com.example.tablesku.file.FileContentReader;
+import com.example.tablesku.validators.ComputerValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -44,6 +45,9 @@ public class HelloController {
 
     @FXML
     private TableView computerTable;
+
+    @FXML
+    private Button addNewRow;
 
     private enum FileType {
         TXT, XML;
@@ -99,20 +103,33 @@ public class HelloController {
             tableColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Computer, String>>() {
                 @Override
                 public void handle(TableColumn.CellEditEvent<Computer, String> t) {
-                    Computer computer = t.getTableView().getItems().get(t.getTablePosition().getRow());
-                    Method method = classReader.getSetMethods().get(t.getTablePosition().getColumn());
-                    try {
-                        method.invoke(computer, t.getNewValue());   //computer.setManufacturer(t.getNewValue());
-                    } catch (IllegalAccessException | InvocationTargetException e) {
-                        e.printStackTrace();
+                    ComputerValidator validator = new ComputerValidator(t);
+                    if(validator.validate()){
+                        Computer computer = t.getTableView().getItems().get(t.getTablePosition().getRow());
+                        Method method = classReader.getSetMethods().get(t.getTablePosition().getColumn());
+                        try {
+                            method.invoke(computer, t.getNewValue());   //computer.setManufacturer(t.getNewValue());
+                        } catch (IllegalAccessException | InvocationTargetException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        showAlert();
+                        computerTable.refresh();
                     }
-
                 }
             });
             columnList.add(tableColumn);
             i++;
         }
         computerTable.getColumns().addAll(columnList);
+
+        addNewRow.setText("Dodaj wiersz");
+        addNewRow.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                computerTable.getItems().add(new Computer());
+            }
+        });
 
     }
 
@@ -161,24 +178,50 @@ public class HelloController {
         public void handle(MouseEvent mouseEvent) {
             Button handledButton = (Button) mouseEvent.getSource();
             FileType fileType = (FileType) handledButton.getUserData();
+            FileChooser fileChooser = new FileChooser();
+            ObservableList<Computer> computersToSave = computerTable.getItems();
             switch (fileType) {
                 case TXT: {
-                    System.out.println("Zapisz plik TXT");
-                    ObservableList<Computer> computersToSave = computerTable.getItems();
-                    for(Computer computer : computersToSave) {
-                        System.out.println(computer.toString());
+                    fileChooser.setTitle("Zapisz plik TXT");
+                    FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+                    fileChooser.getExtensionFilters().add(extensionFilter);
+                    File saveFile = fileChooser.showSaveDialog(new Stage());
+                    try {
+                        safeToTxtFile(saveFile, computersToSave);
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                     break;
                 }
                 case XML: {
-                    System.out.println("Zapisz plik XML");
+                    fileChooser.setTitle("Zapisz plik XML");
+                    FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+                    fileChooser.getExtensionFilters().add(extensionFilter);
                     break;
                 }
                 default: {
                     System.out.println("Zapisz plik");
-                    break;
+                    fileChooser.setTitle("Zapisz plik");
                 }
             }
+
         }
     };
+
+    private void safeToTxtFile(File saveFile, ObservableList<Computer> list) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(saveFile));
+        for(Computer computer : list) {
+            writer.write(computer.toFile());
+        }
+        writer.close();
+    }
+
+    private void showAlert() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Złe dane!");
+        alert.setHeaderText("Wprowadzono złe dane");
+        alert.setContentText("Careful with the next step!");
+
+        alert.showAndWait();
+    }
 }
