@@ -1,5 +1,11 @@
 package com.example.tablesku.entity;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Computer {
     private String manufacturer = "";   //0
     private String screenSize = "";     //1
