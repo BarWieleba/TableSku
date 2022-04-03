@@ -17,10 +17,6 @@ public class FileContentReader {
     private String path;
     private String delimiter;
 
-    private LinkedList<Method> getMethods = new LinkedList<>();
-    private LinkedList<Method> setMethods = new LinkedList<>();
-    private LinkedList<Field> fields = new LinkedList<>();
-
     public FileContentReader(String path) {
         this.path = path;
     }
@@ -30,23 +26,11 @@ public class FileContentReader {
         this.delimiter = delimiter;
     }
 
-    private void readClassMethods(Class tClass) {
-        List<Method> classMethods = Arrays.stream(tClass.getDeclaredMethods()).collect(Collectors.toList());
-        fields = new LinkedList<>(Arrays.stream(tClass.getDeclaredFields()).collect(Collectors.toList()));
 
-        int i = 0;
-        for(Field field : fields) {
-            String methodName = field.getName().substring(0,1).toUpperCase() + field.getName().substring(1);
-            Method method = getProperMethod(classMethods, "get" + methodName);
-            Method method1 = getProperMethod(classMethods, "set" + methodName);
-            getMethods.add(method);
-            setMethods.add(method1);
-            System.out.println(field.getName() + " " + method.getName() + " " + method1.getName());
-        }
-    }
 
     public List<Computer> readFromFile() throws Exception{
-        readClassMethods(Computer.class);
+        ClassReader classReader = new ClassReader(Computer.class);
+        classReader.readClassMethods();
         List<Computer> computers = new ArrayList<>();
 
 
@@ -56,7 +40,7 @@ public class FileContentReader {
             String[] lineArray = line.split(delimiter);
             Computer computer = new Computer();
             for(int i = 0; i < lineArray.length; i++){
-                Method method = setMethods.get(i);
+                Method method = classReader.getSetMethods().get(i);
                 method.invoke(computer, lineArray[i]);
             }
             computers.add(computer);
@@ -80,36 +64,4 @@ public class FileContentReader {
         this.delimiter = delimiter;
     }
 
-    private Method getProperMethod(List<Method> methodList, String criteria) {
-        for(Method method : methodList) {
-            if(method.getName().contains(criteria)){
-                return method;
-            }
-        }
-        return null;
-    }
-
-    public LinkedList<Method> getGetMethods() {
-        return getMethods;
-    }
-
-    public void setGetMethods(LinkedList<Method> getMethods) {
-        this.getMethods = getMethods;
-    }
-
-    public LinkedList<Method> getSetMethods() {
-        return setMethods;
-    }
-
-    public void setSetMethods(LinkedList<Method> setMethods) {
-        this.setMethods = setMethods;
-    }
-
-    public LinkedList<Field> getFields() {
-        return fields;
-    }
-
-    public void setFields(LinkedList<Field> fields) {
-        this.fields = fields;
-    }
 }

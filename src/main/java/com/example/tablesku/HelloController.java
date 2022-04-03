@@ -1,6 +1,7 @@
 package com.example.tablesku;
 
 import com.example.tablesku.entity.Computer;
+import com.example.tablesku.file.ClassReader;
 import com.example.tablesku.file.FileContentReader;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +19,8 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -45,7 +48,6 @@ public class HelloController {
     private enum FileType {
         TXT, XML;
     }
-
     private String columnNames[] = {
             "Producent",
             "Przekątna ekranu",
@@ -82,12 +84,31 @@ public class HelloController {
         uploadToTxt.addEventHandler(MouseEvent.MOUSE_CLICKED, saveFile);
         uploadToXml.addEventHandler(MouseEvent.MOUSE_CLICKED, saveFile);
 
+        ClassReader classReader = new ClassReader(Computer.class);
+        classReader.readClassMethods();
+
         List<TableColumn<Computer, String>> columnList = new ArrayList<>();
         int i = 0;
         for(String columnHeader : columnNames) {
             TableColumn<Computer, String> tableColumn = new TableColumn<>(columnHeader);
             tableColumn.setCellValueFactory(new PropertyValueFactory<>(fields.get(i).getName()));
             tableColumn.setCellFactory(TextFieldTableCell.<Computer>forTableColumn());
+
+
+
+            tableColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Computer, String>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Computer, String> t) {
+                    Computer computer = t.getTableView().getItems().get(t.getTablePosition().getRow());
+                    Method method = classReader.getSetMethods().get(t.getTablePosition().getColumn());
+                    try {
+                        method.invoke(computer, t.getNewValue());   //computer.setManufacturer(t.getNewValue());
+                    } catch (IllegalAccessException | InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
             columnList.add(tableColumn);
             i++;
         }
@@ -143,6 +164,10 @@ public class HelloController {
             switch (fileType) {
                 case TXT: {
                     System.out.println("Zapisz plik TXT");
+                    ObservableList<Computer> computersToSave = computerTable.getItems();
+                    for(Computer computer : computersToSave) {
+                        System.out.println(computer.toString());
+                    }
                     break;
                 }
                 case XML: {

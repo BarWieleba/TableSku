@@ -136,4 +136,25 @@ public class Computer {
     public void setRecorder(String recorder) {
         this.recorder = recorder;
     }
+
+    @Override
+    public String toString() {
+        return "Computer{" +
+                "manufacturer='" + manufacturer + '\'' +
+                ", screenSize='" + screenSize + '\'' +
+                ", resolution='" + resolution + '\'' +
+                ", matrixTexture='" + matrixTexture + '\'' +
+                ", packaging='" + packaging + '\'' +
+                ", processor='" + processor + '\'' +
+                ", coreCount='" + coreCount + '\'' +
+                ", processorSpeed='" + processorSpeed + '\'' +
+                ", ramSize='" + ramSize + '\'' +
+                ", driveSize='" + driveSize + '\'' +
+                ", driveType='" + driveType + '\'' +
+                ", graphics='" + graphics + '\'' +
+                ", videoMemory='" + videoMemory + '\'' +
+                ", os='" + os + '\'' +
+                ", recorder='" + recorder + '\'' +
+                '}';
+    }
 }
