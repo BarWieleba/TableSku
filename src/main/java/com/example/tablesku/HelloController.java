@@ -144,6 +144,18 @@ public class HelloController {
                     fileChooser.setTitle("Otwórz plik TXT");
                     FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
                     fileChooser.getExtensionFilters().add(extensionFilter);
+
+                    File openedFile = fileChooser.showOpenDialog(new Stage());
+                    FileContentReader fileContentReader = new FileContentReader(openedFile.getAbsolutePath(), ";");
+                    try {
+                        List<Computer> computers = fileContentReader.readFromFile();
+                        ObservableList<Computer> computerObservableList = FXCollections.observableList(computers);
+                        computerTable.setItems(computerObservableList);
+                        computerTable.setEditable(true);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     break;
                 }
                 case XML: {
@@ -155,20 +167,6 @@ public class HelloController {
                 default: {
                     fileChooser.setTitle("Otwórz plik XML");
                 }
-            }
-            File openedFile = fileChooser.showOpenDialog(new Stage());
-            FileContentReader fileContentReader = new FileContentReader(openedFile.getAbsolutePath(), ";");
-            try {
-
-                List<Computer> computers = fileContentReader.readFromFile();
-                ObservableList<Computer> computerObservableList = FXCollections.observableList(computers);
-
-
-                computerTable.setItems(computerObservableList);
-                computerTable.setEditable(true);
-
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }
     };
