@@ -27,10 +27,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -226,7 +223,7 @@ public class HelloController {
                             JAXBContext ctx = JAXBContext.newInstance(ComputerList.class);
                             Marshaller marshaller = ctx.createMarshaller();
                             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-                            ComputerList computerList = new ComputerList(computersToSave);
+                            ComputerList computerList = new ComputerList(new Date(), computersToSave);
                             marshaller.marshal(computerList, saveFile);
                         } catch (JAXBException e) {
                             e.printStackTrace();
