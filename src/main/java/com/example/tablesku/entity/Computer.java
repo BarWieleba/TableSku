@@ -17,6 +17,27 @@ public class Computer {
     private String os = "";             //13
     private String recorder = "";       //14
 
+    public Computer() {
+    }
+
+    public Computer(String manufacturer, String screenSize, String resolution, String matrixTexture, String packaging, String processor, String coreCount, String processorSpeed, String ramSize, String driveSize, String driveType, String graphics, String videoMemory, String os, String recorder) {
+        this.manufacturer = manufacturer;
+        this.screenSize = screenSize;
+        this.resolution = resolution;
+        this.matrixTexture = matrixTexture;
+        this.packaging = packaging;
+        this.processor = processor;
+        this.coreCount = coreCount;
+        this.processorSpeed = processorSpeed;
+        this.ramSize = ramSize;
+        this.driveSize = driveSize;
+        this.driveType = driveType;
+        this.graphics = graphics;
+        this.videoMemory = videoMemory;
+        this.os = os;
+        this.recorder = recorder;
+    }
+
     public String getManufacturer() {
         return manufacturer;
     }
