@@ -1,21 +1,21 @@
 package com.example.tablesku.entity;
 
 public class Computer {
-    private String manufacturer = "";
-    private String screenSize = "";
-    private String resolution = "";
-    private String matrixTexture = "";
-    private String packaging = "";
-    private String processor = "";
-    private String coreCount = "";
-    private String processorSpeed = "";
-    private String ramSize = "";
-    private String driveSize = "";
-    private String driveType = "";
-    private String graphics = "";
-    private String videoMemory = "";
-    private String os = "";
-    private String recorder = "";
+    private String manufacturer = "";   //0
+    private String screenSize = "";     //1
+    private String resolution = "";     //2
+    private String matrixTexture = "";  //3
+    private String packaging = "";      //4
+    private String processor = "";      //5
+    private String coreCount = "";      //6
+    private String processorSpeed = ""; //7
+    private String ramSize = "";        //8
+    private String driveSize = "";      //9
+    private String driveType = "";      //10
+    private String graphics = "";       //11
+    private String videoMemory = "";    //12
+    private String os = "";             //13
+    private String recorder = "";       //14
 
     public String getManufacturer() {
         return manufacturer;
