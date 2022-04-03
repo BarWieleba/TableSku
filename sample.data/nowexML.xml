@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<computerList>
+    <computer>
+        <manufacturer>Dell</manufacturer>
+        <screenSize>12"</screenSize>
+        <resolution></resolution>
+        <matrixTexture>matowa</matrixTexture>
+        <packaging>nie</packaging>
+        <processor>intel i7</processor>
+        <coreCount>4</coreCount>
+        <processorSpeed>2800</processorSpeed>
+        <ramSize>8GB</ramSize>
+        <driveSize>240GB</driveSize>
+        <driveType>SSD</driveType>
+        <graphics>intel HD Graphics 4000</graphics>
+        <videoMemory>1GB</videoMemory>
+        <os>Windows 7 Home</os>
+        <recorder></recorder>
+    </computer>
+    <computer>
+        <manufacturer>Asus</manufacturer>
+        <screenSize>14"</screenSize>
+        <resolution>1600x900</resolution>
+        <matrixTexture>matowa</matrixTexture>
+        <packaging>nie</packaging>
+        <processor>intel i5</processor>
+        <coreCount>4</coreCount>
+        <processorSpeed></processorSpeed>
+        <ramSize>16GB</ramSize>
+        <driveSize>120GB</driveSize>
+        <driveType>SSD</driveType>
+        <graphics>intel HD Graphics 5000</graphics>
+        <videoMemory>1GB</videoMemory>
+        <os></os>
+        <recorder>brak</recorder>
+    </computer>
+    <computer>
+        <manufacturer>Fujitsu</manufacturer>
+        <screenSize>14"</screenSize>
+        <resolution>1920x1080</resolution>
+        <matrixTexture>blyszczaca</matrixTexture>
+        <packaging>tak</packaging>
+        <processor>intel i7</processor>
+        <coreCount>8</coreCount>
+        <processorSpeed>1900</processorSpeed>
+        <ramSize>24GB</ramSize>
+        <driveSize>500GB</driveSize>
+        <driveType>HDD</driveType>
+        <graphics>intel HD Graphics 520</graphics>
+        <videoMemory>1GB</videoMemory>
+        <os>brak systemu</os>
+        <recorder>Blu-Ray</recorder>
+    </computer>
+    <computer>
+        <manufacturer>Huawei</manufacturer>
+        <screenSize>13"</screenSize>
+        <resolution></resolution>
+        <matrixTexture>matowa</matrixTexture>
+        <packaging>nie</packaging>
+        <processor>intel i7</processor>
+        <coreCount>4</coreCount>
+        <processorSpeed>2400</processorSpeed>
+        <ramSize>12GB</ramSize>
+        <driveSize>24GB</driveSize>
+        <driveType>HDD</driveType>
+        <graphics>NVIDIA GeForce GTX 1050</graphics>
+        <videoMemory></videoMemory>
+        <os></os>
+        <recorder>brak</recorder>
+    </computer>
+    <computer>
+        <manufacturer>MSI</manufacturer>
+        <screenSize>17"</screenSize>
+        <resolution>1600x900</resolution>
+        <matrixTexture>blyszczaca</matrixTexture>
+        <packaging>tak</packaging>
+        <processor>intel i7</processor>
+        <coreCount>4</coreCount>
+        <processorSpeed>3300</processorSpeed>
+        <ramSize>8GB</ramSize>
+        <driveSize>60GB</driveSize>
+        <driveType>SSD</driveType>
+        <graphics>AMD Radeon Pro 455</graphics>
+        <videoMemory>1GB</videoMemory>
+        <os>Windows 8.1 Profesional</os>
+        <recorder>DVD</recorder>
+    </computer>
+    <computer>
+        <manufacturer>Dell</manufacturer>
+        <screenSize></screenSize>
+        <resolution>1280x800</resolution>
+        <matrixTexture>matowa</matrixTexture>
+        <packaging>nie</packaging>
+        <processor>intel i7</processor>
+        <coreCount>4</coreCount>
+        <processorSpeed>2800</processorSpeed>
+        <ramSize>8GB</ramSize>
+        <driveSize>240GB</driveSize>
+        <driveType>SSD</driveType>
+        <graphics></graphics>
+        <videoMemory></videoMemory>
+        <os>Windows 7 Home</os>
+        <recorder>brak</recorder>
+    </computer>
+    <computer>
+        <manufacturer>Asus</manufacturer>
+        <screenSize>14"</screenSize>
+        <resolution>1600x900</resolution>
+        <matrixTexture>matowa</matrixTexture>
+        <packaging>nie</packaging>
+        <processor>intel i5</processor>
+        <coreCount>4</coreCount>
+        <processorSpeed>2800</processorSpeed>
+        <ramSize></ramSize>
+        <driveSize>120GB</driveSize>
+        <driveType>SSD</driveType>
+        <graphics>intel HD Graphics 5000</graphics>
+        <videoMemory>1GB</videoMemory>
+        <os>Windows 10 Home</os>
+        <recorder></recorder>
+    </computer>
+    <computer>
+        <manufacturer>Fujitsu</manufacturer>
+        <screenSize>15"</screenSize>
+        <resolution>1920x1080</resolution>
+        <matrixTexture>blyszczaca</matrixTexture>
+        <packaging>tak</packaging>
+        <processor>intel i7</processor>
+        <coreCount>8</coreCount>
+        <processorSpeed>2800</processorSpeed>
+        <ramSize>24GB</ramSize>
+        <driveSize>500GB</driveSize>
+        <driveType>HDD</driveType>
+        <graphics>intel HD Graphics 520</graphics>
+        <videoMemory></videoMemory>
+        <os>brak systemu</os>
+        <recorder>Blu-Ray</recorder>
+    </computer>
+    <computer>
+        <manufacturer>Samsung</manufacturer>
+        <screenSize>13"</screenSize>
+        <resolution>1366x768</resolution>
+        <matrixTexture>matowa</matrixTexture>
+        <packaging>nie</packaging>
+        <processor>intel i7</processor>
+        <coreCount>4</coreCount>
+        <processorSpeed>2800</processorSpeed>
+        <ramSize>12GB</ramSize>
+        <driveSize>24GB</driveSize>
+        <driveType>HDD</driveType>
+        <graphics>NVIDIA GeForce GTX 1050</graphics>
+        <videoMemory>1GB</videoMemory>
+        <os>Windows 10 Home</os>
+        <recorder>brak</recorder>
+    </computer>
+    <computer>
+        <manufacturer>Sony</manufacturer>
+        <screenSize>16"</screenSize>
+        <resolution></resolution>
+        <matrixTexture>blyszczaca</matrixTexture>
+        <packaging>tak</packaging>
+        <processor>intel i7</processor>
+        <coreCount>4</coreCount>
+        <processorSpeed>2800</processorSpeed>
+        <ramSize>8GB</ramSize>
+        <driveSize></driveSize>
+        <driveType></driveType>
+        <graphics>AMD Radeon Pro 455</graphics>
+        <videoMemory>1GB</videoMemory>
+        <os>Windows 7 Profesional</os>
+        <recorder>DVD</recorder>
+    </computer>
+    <computer>
+        <manufacturer>Samsung</manufacturer>
+        <screenSize>12"</screenSize>
+        <resolution>1280x800</resolution>
+        <matrixTexture>matowa</matrixTexture>
+        <packaging>nie</packaging>
+        <processor>intel i7</processor>
+        <coreCount></coreCount>
+        <processorSpeed>2120</processorSpeed>
+        <ramSize></ramSize>
+        <driveSize></driveSize>
+        <driveType></driveType>
+        <graphics>intel HD Graphics 4000</graphics>
+        <videoMemory>1GB</videoMemory>
+        <os></os>
+        <recorder>brak</recorder>
+    </computer>
+    <computer>
+        <manufacturer>Samsung</manufacturer>
+        <screenSize>14"</screenSize>
+        <resolution>1600x900</resolution>
+        <matrixTexture>matowa</matrixTexture>
+        <packaging>nie</packaging>
+        <processor>intel i5</processor>
+        <coreCount></coreCount>
+        <processorSpeed></processorSpeed>
+        <ramSize></ramSize>
+        <driveSize></driveSize>
+        <driveType>SSD</driveType>
+        <graphics>intel HD Graphics 5000</graphics>
+        <videoMemory>1GB</videoMemory>
+        <os>Windows 10 Home</os>
+        <recorder>brak</recorder>
+    </computer>
+    <computer>
+        <manufacturer>Fujitsu</manufacturer>
+        <screenSize>15"</screenSize>
+        <resolution>1920x1080</resolution>
+        <matrixTexture>blyszczaca</matrixTexture>
+        <packaging>tak</packaging>
+        <processor>intel i7</processor>
+        <coreCount>8</coreCount>
+        <processorSpeed>2800</processorSpeed>
+        <ramSize>24GB</ramSize>
+        <driveSize>500GB</driveSize>
+        <driveType>HDD</driveType>
+        <graphics>intel HD Graphics 520</graphics>
+        <videoMemory></videoMemory>
+        <os>brak systemu</os>
+        <recorder>Blu-Ray</recorder>
+    </computer>
+    <computer>
+        <manufacturer>Huawei</manufacturer>
+        <screenSize>13"</screenSize>
+        <resolution>1366x768</resolution>
+        <matrixTexture>matowa</matrixTexture>
+        <packaging>nie</packaging>
+        <processor>intel i7</processor>
+        <coreCount>4</coreCount>
+        <processorSpeed>3000</processorSpeed>
+        <ramSize></ramSize>
+        <driveSize>24GB</driveSize>
+        <driveType>HDD</driveType>
+        <graphics>NVIDIA GeForce GTX 1050</graphics>
+        <videoMemory></videoMemory>
+        <os>Windows 10 Home</os>
+        <recorder>brak</recorder>
+    </computer>
+    <computer>
+        <manufacturer>MSI</manufacturer>
+        <screenSize>17"</screenSize>
+        <resolution>1600x900</resolution>
+        <matrixTexture>blyszczaca</matrixTexture>
+        <packaging>tak</packaging>
+        <processor>intel i7</processor>
+        <coreCount>4</coreCount>
+        <processorSpeed>9999</processorSpeed>
+        <ramSize>8GB</ramSize>
+        <driveSize>60GB</driveSize>
+        <driveType>SSD</driveType>
+        <graphics>AMD Radeon Pro 455</graphics>
+        <videoMemory>1GB</videoMemory>
+        <os>Windows 7 Profesional</os>
+        <recorder></recorder>
+    </computer>
+    <computer>
+        <manufacturer>Huawei</manufacturer>
+        <screenSize>14"</screenSize>
+        <resolution></resolution>
+        <matrixTexture>matowa</matrixTexture>
+        <packaging>nie</packaging>
+        <processor>intel i7</processor>
+        <coreCount>4</coreCount>
+        <processorSpeed>2200</processorSpeed>
+        <ramSize>8GB</ramSize>
+        <driveSize>16GB</driveSize>
+        <driveType>HDD</driveType>
+        <graphics>NVIDIA GeForce GTX 1080</graphics>
+        <videoMemory></videoMemory>
+        <os></os>
+        <recorder>brak</recorder>
+    </computer>
+    <computer>
+        <manufacturer>MSI</manufacturer>
+        <screenSize>17"</screenSize>
+        <resolution>1600x900</resolution>
+        <matrixTexture>blyszczaca</matrixTexture>
+        <packaging>tak</packaging>
+        <processor>intel i7</processor>
+        <coreCount>4</coreCount>
+        <processorSpeed>3300</processorSpeed>
+        <ramSize>8GB</ramSize>
+        <driveSize>60GB</driveSize>
+        <driveType>SSD</driveType>
+        <graphics>AMD Radeon Pro 455</graphics>
+        <videoMemory>1GB</videoMemory>
+        <os></os>
+        <recorder></recorder>
+    </computer>
+    <computer>
+        <manufacturer>Asus</manufacturer>
+        <screenSize></screenSize>
+        <resolution>1600x900</resolution>
+        <matrixTexture>blyszczaca</matrixTexture>
+        <packaging>tak</packaging>
+        <processor>intel i5</processor>
+        <coreCount>2</coreCount>
+        <processorSpeed>3200</processorSpeed>
+        <ramSize>16GB</ramSize>
+        <driveSize>320GB</driveSize>
+        <driveType>HDD</driveType>
+        <graphics></graphics>
+        <videoMemory></videoMemory>
+        <os>Windows 7 Home</os>
+        <recorder>brak</recorder>
+    </computer>
+    <computer>
+        <manufacturer>Asus</manufacturer>
+        <screenSize>14"</screenSize>
+        <resolution>1600x900</resolution>
+        <matrixTexture>matowa</matrixTexture>
+        <packaging>nie</packaging>
+        <processor>intel i5</processor>
+        <coreCount>4</coreCount>
+        <processorSpeed>2800</processorSpeed>
+        <ramSize></ramSize>
+        <driveSize>120GB</driveSize>
+        <driveType>SSD</driveType>
+        <graphics>intel HD Graphics 5000</graphics>
+        <videoMemory>1GB</videoMemory>
+        <os>Windows 10 Profesional</os>
+        <recorder></recorder>
+    </computer>
+    <computer>
+        <manufacturer>Fujitsu</manufacturer>
+        <screenSize>14"</screenSize>
+        <resolution>1280x800</resolution>
+        <matrixTexture>blyszczaca</matrixTexture>
+        <packaging>tak</packaging>
+        <processor>intel i7</processor>
+        <coreCount>8</coreCount>
+        <processorSpeed>2800</processorSpeed>
+        <ramSize>24GB</ramSize>
+        <driveSize>500GB</driveSize>
+        <driveType>HDD</driveType>
+        <graphics>intel HD Graphics 520</graphics>
+        <videoMemory></videoMemory>
+        <os>brak systemu</os>
+        <recorder>Blu-Ray</recorder>
+    </computer>
+    <computer>
+        <manufacturer>Samsung</manufacturer>
+        <screenSize>12"</screenSize>
+        <resolution>1600x900</resolution>
+        <matrixTexture></matrixTexture>
+        <packaging>nie</packaging>
+        <processor>intel i5</processor>
+        <coreCount>4</coreCount>
+        <processorSpeed>2800</processorSpeed>
+        <ramSize>12GB</ramSize>
+        <driveSize>24GB</driveSize>
+        <driveType>HDD</driveType>
+        <graphics>NVIDIA GeForce GTX 1050</graphics>
+        <videoMemory>1GB</videoMemory>
+        <os>Windows 8.1 Home</os>
+        <recorder>brak</recorder>
+    </computer>
+    <computer>
+        <manufacturer>Sony</manufacturer>
+        <screenSize>11"</screenSize>
+        <resolution></resolution>
+        <matrixTexture>blyszczaca</matrixTexture>
+        <packaging>tak</packaging>
+        <processor>intel i7</processor>
+        <coreCount>4</coreCount>
+        <processorSpeed>2800</processorSpeed>
+        <ramSize>8GB</ramSize>
+        <driveSize></driveSize>
+        <driveType></driveType>
+        <graphics>AMD Radeon Pro 455</graphics>
+        <videoMemory>1GB</videoMemory>
+        <os>Windows 7 Profesional</os>
+        <recorder>brak</recorder>
+    </computer>
+    <computer>
+        <manufacturer>Samsung</manufacturer>
+        <screenSize>13"</screenSize>
+        <resolution>1366x768</resolution>
+        <matrixTexture></matrixTexture>
+        <packaging>nie</packaging>
+        <processor>intel i5</processor>
+        <coreCount></coreCount>
+        <processorSpeed>2120</processorSpeed>
+        <ramSize></ramSize>
+        <driveSize></driveSize>
+        <driveType></driveType>
+        <graphics>intel HD Graphics 4000</graphics>
+        <videoMemory>2GB</videoMemory>
+        <os></os>
+        <recorder>DVD</recorder>
+    </computer>
+    <computer>
+        <manufacturer>Samsung</manufacturer>
+        <screenSize>15"</screenSize>
+        <resolution>1920x1080</resolution>
+        <matrixTexture>matowa</matrixTexture>
+        <packaging>nie</packaging>
+        <processor>intel i9</processor>
+        <coreCount></coreCount>
+        <processorSpeed></processorSpeed>
+        <ramSize></ramSize>
+        <driveSize></driveSize>
+        <driveType>SSD</driveType>
+        <graphics>intel HD Graphics 4000</graphics>
+        <videoMemory>2GB</videoMemory>
+        <os>Windows 10 Profesional</os>
+        <recorder>Blu-Ray</recorder>
+    </computer>
+</computerList>
