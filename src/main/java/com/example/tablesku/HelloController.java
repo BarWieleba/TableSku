@@ -1,9 +1,13 @@
 package com.example.tablesku;
 
 import com.example.tablesku.entity.Computer;
+import com.example.tablesku.entity.ComputerList;
 import com.example.tablesku.file.ClassReader;
 import com.example.tablesku.file.FileContentReader;
 import com.example.tablesku.validators.ComputerValidator;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -195,11 +199,23 @@ public class HelloController {
                     fileChooser.setTitle("Zapisz plik XML");
                     FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
                     fileChooser.getExtensionFilters().add(extensionFilter);
+                    File saveFile = fileChooser.showSaveDialog(new Stage());
+
+
+                    try {
+                        JAXBContext ctx = JAXBContext.newInstance(ComputerList.class);
+                        Marshaller marshaller = ctx.createMarshaller();
+                        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+                        ComputerList computerList = new ComputerList(computersToSave);
+                        marshaller.marshal(computerList, saveFile);
+                    } catch (JAXBException e) {
+                        e.printStackTrace();
+                    }
+
                     break;
                 }
                 default: {
                     System.out.println("Zapisz plik");
-                    fileChooser.setTitle("Zapisz plik");
                 }
             }
 
