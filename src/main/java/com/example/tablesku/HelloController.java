@@ -8,6 +8,7 @@ import com.example.tablesku.validators.ComputerValidator;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -150,15 +151,17 @@ public class HelloController {
                     fileChooser.getExtensionFilters().add(extensionFilter);
 
                     File openedFile = fileChooser.showOpenDialog(new Stage());
-                    FileContentReader fileContentReader = new FileContentReader(openedFile.getAbsolutePath(), ";");
-                    try {
-                        List<Computer> computers = fileContentReader.readFromFile();
-                        ObservableList<Computer> computerObservableList = FXCollections.observableList(computers);
-                        computerTable.setItems(computerObservableList);
-                        computerTable.setEditable(true);
+                    if(openedFile!=null) {
+                        FileContentReader fileContentReader = new FileContentReader(openedFile.getAbsolutePath(), ";");
+                        try {
+                            List<Computer> computers = fileContentReader.readFromFile();
+                            ObservableList<Computer> computerObservableList = FXCollections.observableList(computers);
+                            computerTable.setItems(computerObservableList);
+                            computerTable.setEditable(true);
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                     break;
                 }
@@ -166,6 +169,22 @@ public class HelloController {
                     fileChooser.setTitle("Otwórz plik XML");
                     FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
                     fileChooser.getExtensionFilters().add(extensionFilter);
+                    File openedFile = fileChooser.showOpenDialog(new Stage());
+                    if(openedFile != null) {
+                        try {
+                            JAXBContext ctx = JAXBContext.newInstance(ComputerList.class);
+                            Unmarshaller unmarshaller = ctx.createUnmarshaller();
+
+                            ComputerList computerList = (ComputerList) unmarshaller.unmarshal(openedFile);
+                            ObservableList<Computer> computerObservableList = FXCollections.observableList(computerList.getComputer());
+                            computerTable.setItems(computerObservableList);
+                            computerTable.setEditable(true);
+
+
+                        } catch (JAXBException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     break;
                 }
                 default: {
@@ -188,10 +207,12 @@ public class HelloController {
                     FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
                     fileChooser.getExtensionFilters().add(extensionFilter);
                     File saveFile = fileChooser.showSaveDialog(new Stage());
-                    try {
-                        safeToTxtFile(saveFile, computersToSave);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if(saveFile != null) {
+                        try {
+                            safeToTxtFile(saveFile, computersToSave);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                     break;
                 }
@@ -200,18 +221,17 @@ public class HelloController {
                     FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
                     fileChooser.getExtensionFilters().add(extensionFilter);
                     File saveFile = fileChooser.showSaveDialog(new Stage());
-
-
-                    try {
-                        JAXBContext ctx = JAXBContext.newInstance(ComputerList.class);
-                        Marshaller marshaller = ctx.createMarshaller();
-                        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-                        ComputerList computerList = new ComputerList(computersToSave);
-                        marshaller.marshal(computerList, saveFile);
-                    } catch (JAXBException e) {
-                        e.printStackTrace();
+                    if(saveFile != null) {
+                        try {
+                            JAXBContext ctx = JAXBContext.newInstance(ComputerList.class);
+                            Marshaller marshaller = ctx.createMarshaller();
+                            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+                            ComputerList computerList = new ComputerList(computersToSave);
+                            marshaller.marshal(computerList, saveFile);
+                        } catch (JAXBException e) {
+                            e.printStackTrace();
+                        }
                     }
-
                     break;
                 }
                 default: {
