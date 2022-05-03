@@ -4,6 +4,7 @@ import com.example.tablesku.entity.Computer;
 import com.example.tablesku.entity.ComputerList;
 import com.example.tablesku.file.ClassReader;
 import com.example.tablesku.file.FileContentReader;
+import com.example.tablesku.network.ConnectionHelper;
 import com.example.tablesku.validators.ComputerValidator;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -46,13 +47,19 @@ public class HelloController {
     private Button uploadToXml;
 
     @FXML
+    private Button importFromDb;
+
+    @FXML
+    private Button exportToDb;
+
+    @FXML
     private TableView computerTable;
 
     @FXML
     private Button addNewRow;
 
     private enum FileType {
-        TXT, XML;
+        TXT, XML, DB;
     }
     private String columnNames[] = {
             "Producent",
@@ -80,15 +87,22 @@ public class HelloController {
         downloadFromTxt.setUserData(FileType.TXT);
         downloadFromXml.setText("Wczytaj dane z XML");
         downloadFromXml.setUserData(FileType.XML);
+        importFromDb.setText("Importuj dane z bazy danych");
+        importFromDb.setUserData(FileType.DB);
         uploadToTxt.setText("Zapisz dane do TXT");
         uploadToTxt.setUserData(FileType.TXT);
         uploadToXml.setText("Zapisz dane do XML");
         uploadToXml.setUserData(FileType.XML);
+        exportToDb.setText("Eksportuj dane do bazy danych");
+        exportToDb.setUserData(FileType.DB);
+
 
         downloadFromTxt.addEventHandler(MouseEvent.MOUSE_CLICKED, chooseFile);
         downloadFromXml.addEventHandler(MouseEvent.MOUSE_CLICKED, chooseFile);
         uploadToTxt.addEventHandler(MouseEvent.MOUSE_CLICKED, saveFile);
         uploadToXml.addEventHandler(MouseEvent.MOUSE_CLICKED, saveFile);
+        importFromDb.addEventHandler(MouseEvent.MOUSE_CLICKED, chooseFile);
+        exportToDb.addEventHandler(MouseEvent.MOUSE_CLICKED, saveFile);
 
         ClassReader classReader = new ClassReader(Computer.class);
         classReader.readClassMethods();
@@ -184,6 +198,20 @@ public class HelloController {
                     }
                     break;
                 }
+
+                case DB: {
+                    ConnectionHelper connectionHelper = new ConnectionHelper();
+                    try {
+                        List<Computer> computers = connectionHelper.readAllComputer();
+                        ObservableList<Computer> computerObservableList = FXCollections.observableList(computers);
+                        System.out.println("List: " + computerObservableList);
+                        computerTable.setItems(computerObservableList);
+                        computerTable.setEditable(true);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+                }
                 default: {
                     fileChooser.setTitle("Otwórz plik XML");
                 }
@@ -228,6 +256,17 @@ public class HelloController {
                         } catch (JAXBException e) {
                             e.printStackTrace();
                         }
+                    }
+                    break;
+                }
+
+                case DB: {
+                    ConnectionHelper connectionHelper = new ConnectionHelper();
+                    try {
+                        List<Computer> computerList = connectionHelper.saveComputers(computersToSave);
+                        System.out.println("List: " + computerList);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
                     break;
                 }

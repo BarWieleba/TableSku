@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TableSku.iml" filepath="$PROJECT_DIR$/TableSku.iml" />
+      <module fileurl="file://$PROJECT_DIR$/skudb/skudb.iml" filepath="$PROJECT_DIR$/skudb/skudb.iml" />
     </modules>
   </component>
 </project>
