@@ -35,7 +35,7 @@ public class ClassReader {
 
     private Method getProperMethod(List<Method> methodList, String criteria) {
         for(Method method : methodList) {
-            if(method.getName().contains(criteria)){
+            if(method.getName().equals(criteria)){
                 return method;
             }
         }

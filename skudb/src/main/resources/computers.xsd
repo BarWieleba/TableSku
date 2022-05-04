@@ -1,15 +1,17 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://bartek.com/soap"
            targetNamespace="http://bartek.com/soap">
 
-    <xs:element name="getComputersByManufacturerRequest">
+    <xs:element name="request">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="manufacturer" type="xs:string"/>
+                <xs:element name="resolution" type="xs:string"/>
+                <xs:element name="everything" type="xs:boolean"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="getComputersByManufacturerResponse">
+    <xs:element name="computerResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="count" type="xs:long"/>

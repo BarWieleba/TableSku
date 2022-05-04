@@ -1,6 +1,7 @@
 package com.example.skudb.service;
 
-import com.bartek.soap.GetComputersByManufacturerResponse;
+import com.bartek.soap.ComputerResponse;
+import com.bartek.soap.Request;
 import com.example.skudb.entity.Computer;
 import com.example.skudb.repository.ComputerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +23,57 @@ public class ComputerService {
         return computerRepository.findAll();
     }
 
-    public List<GetComputersByManufacturerResponse.ComputerList> getComputersByManufaturer(String manufacturer) {
-        List<Computer> computers = computerRepository.findComputersByManufacturer(manufacturer);
-        return computerIntoComputerList(computerRepository.findComputersByManufacturer(manufacturer));
+    public List<ComputerResponse.ComputerList> getComputers(Request request) {
+        List<Computer> computers = new ArrayList<>();
+
+        if (request.isEverything()) {
+            return computerIntoComputerList(computerRepository.findAll());
+        }
+
+        if(request.getManufacturer() != null && !request.getManufacturer().isEmpty() && request.getResolution() != null && !request.getResolution().isEmpty()) {
+            computers = computerRepository.findComputersByManufacturer(request.getManufacturer());
+            computers = screenProportions(computers, request.getResolution());
+        }
+        else if(request.getManufacturer() != null && !request.getManufacturer().isEmpty()) {
+            computers = computerRepository.findComputersByManufacturer(request.getManufacturer());
+        }
+        else if(request.getResolution() != null && !request.getResolution().isEmpty()) {
+            computers = computerRepository.findAll();
+            computers = screenProportions(computers, request.getResolution());
+        }
+        return computerIntoComputerList(computers);
     }
 
-    private List<GetComputersByManufacturerResponse.ComputerList> computerIntoComputerList(List<Computer> computers){
-        List<GetComputersByManufacturerResponse.ComputerList> computerLists = new ArrayList<>();
+    private List<Computer> screenProportions(List<Computer> computers, String proportions) {
+        List<Computer> matchingComputers = new ArrayList<>();
+        for(Computer computer : computers) {
+            if(doProportionsMatch(computer, proportions)){
+                matchingComputers.add(computer);
+            }
+        }
+        return matchingComputers;
+    }
+
+    private boolean doProportionsMatch(Computer computer, String proportions) {
+        if(computer.getResolution() == null || computer.getResolution().isEmpty()){
+            return false;
+        }
+        String[] proportion = proportions.split("x");
+        int widthProp = Integer.parseInt(proportion[0]);
+        int heightProp = Integer.parseInt(proportion[1]);
+
+        String[] resolution = computer.getResolution().split("x");
+        int width = Integer.parseInt(resolution[0]);
+        int height = Integer.parseInt(resolution[1]);
+        return (width/widthProp) == (height/heightProp);
+    }
+
+
+
+    private List<ComputerResponse.ComputerList> computerIntoComputerList(List<Computer> computers){
+        List<ComputerResponse.ComputerList> computerLists = new ArrayList<>();
         for (Computer computer : computers) {
-            GetComputersByManufacturerResponse.ComputerList computerList = new GetComputersByManufacturerResponse.ComputerList();
+            ComputerResponse.ComputerList computerList = new ComputerResponse.ComputerList();
             computerList.setId(computer.getId());
             computerList.setManufacturer(computer.getManufacturer());
             computerList.setScreenSize(computer.getScreenSize());

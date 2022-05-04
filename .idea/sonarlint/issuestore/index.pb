@@ -1,8 +1,6 @@
 
 v
 F.idea/libraries/Maven__javax_activation_javax_activation_api_1_2_0.xml,a\a\aacb7d6eb9dd5dbacb525386cd565fc743b22dab
-h
-8src/main/java/com/example/tablesku/file/ClassReader.java,3\f\3f5afc80b73d2d5e899108c42a52dd0b3dda1bc5
 k
 ;.idea/libraries/Maven__com_sun_xml_bind_jaxb_core_3_0_2.xml,2\1\218cb5546a2806a00f4122a1e9899f02c3755f46
 k
@@ -220,10 +218,6 @@ n
 >src/main/java/com/example/tablesku/network/ConnectionBean.java,3\e\3e5e95d89aad6a51d0fd5689c56d0f7ae2885e15
 p
 @src/main/java/com/example/tablesku/network/ConnectionHelper.java,d\3\d3180cae127fa10654be982ff7f517ce09b2f878
-n
->src/main/java/com/example/tablesku/file/FileContentReader.java,f\2\f21c83a23af04e0164a1dc727f6561e60de37354
-g
-7src/main/java/com/example/tablesku/HelloController.java,1\c\1c6ca6af3af3a2a23309050c12f65b25f27c9b9f
 p
 @skudb/src/test/java/com/example/skudb/SkudbApplicationTests.java,2\1\216f1470bc6c03688835a368a82f2378f13c115a
 z

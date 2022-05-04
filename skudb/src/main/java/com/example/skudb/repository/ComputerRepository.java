@@ -9,4 +9,7 @@ import java.util.List;
 @Repository
 public interface ComputerRepository extends JpaRepository<Computer, Long> {
     List<Computer> findComputersByManufacturer(String manufacturer);
+    List<Computer> findComputersByResolution(String resolution);
+
+    List<Computer> findComputersByManufacturerAndResolution(String manufacturer, String resolution);
 }
