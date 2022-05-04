@@ -8,10 +8,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="TableSku" />
+        <module name="aplikacjaKlienta" />
         <module name="skudb" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="aplikacjaKlienta" target="13" />
       <module name="skudb" target="18" />
       <module name="TableSku" target="13" />
     </bytecodeTargetLevel>

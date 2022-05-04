@@ -236,7 +236,5 @@ N
 src/main/java/module-info.java,1\c\1c89a5491fbfda3fb050196d6a239f20200296e7
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
-h
-8src/main/java/com/example/tablesku/HelloApplication.java,d\6\d6e250236e54c0c1f59d389eb0b6b44eeaa74927
 k
 ;skudb/src/main/java/com/example/skudb/SkudbApplication.java,c\6\c64377fd72108d42a9ee41a4e9ec41fb954b178c
