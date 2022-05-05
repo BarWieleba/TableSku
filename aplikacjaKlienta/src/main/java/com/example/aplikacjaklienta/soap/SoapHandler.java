@@ -78,9 +78,9 @@ public class SoapHandler {
                 "         xmlns:std=\"http://bartek.com/soap\"  >\n" +
                 "    <soap:Body>\n" +
                 "        <std:request >\n" +
-                "            <everything></everything>\n" +
-                "            <manufacturer>Asus</manufacturer>\n" +
-                "            <resolution>16x9</resolution>\n" +
+                "            <everything>" + everything + "</everything>\n" +
+                "            <manufacturer>" + manufacturer + "</manufacturer>\n" +
+                "            <resolution>" + resolution + "</resolution>\n" +
                 "        </std:request>\n" +
                 "    </soap:Body>\n" +
                 "</soap:Envelope>";
@@ -107,7 +107,7 @@ public class SoapHandler {
                 System.out.println(children.item(k).getNodeName());
                 System.out.println(children.item(k).getTextContent());
                 if(children.item(k).getNodeName().equals("count")){
-                    computerResponse.setCount(Long.valueOf(children.item(k).getTextContent()));
+                    computerResponse.setCount(Long.parseLong(children.item(k).getTextContent()));
                 }
                 if (children.item(k).getNodeName().equals("computerList")) {
                     NodeList children1 = children.item(k).getChildNodes();
@@ -115,7 +115,7 @@ public class SoapHandler {
                     for(int j=0; j< children1.getLength(); j++){
                         String content = children1.item(j).getTextContent();
                         if(j==0){
-                            dataDto.setId(Long.valueOf(content));
+                            dataDto.setId(content);
                         }
                         if(j==1){
                             dataDto.setManufacturer(content);

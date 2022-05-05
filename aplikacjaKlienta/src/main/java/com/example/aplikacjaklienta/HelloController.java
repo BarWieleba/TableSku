@@ -43,9 +43,12 @@ public class HelloController {
     private Button listComputersWithMatrix;
 
     @FXML
-    private TableView computerTable;
+    private TableView<ComputerResponse.ComputerList> computerTable;
+
+    private SoapHandler soapHandler;
 
     private final String columnNames[] = {
+            "Id",
             "Producent",
             "Przekątna ekranu",
             "Rozdzielczość",
@@ -66,6 +69,7 @@ public class HelloController {
     private LinkedList<Field> fields = new LinkedList<>(Arrays.stream(ComputerResponse.ComputerList.class.getDeclaredFields()).collect(Collectors.toList()));
     @FXML
     void initialize() {
+        soapHandler = new SoapHandler();
         chooseManufacturer.setText("Wybór producenta");
         chooseManufacturer.setLabelFor(comboManufacturer);
         countManufacturer.setText("liczba laptopów producenta");
@@ -87,12 +91,21 @@ public class HelloController {
             columnList.add(tableColumn);
             i++;
         }
+        columnList.get(0).setVisible(false);
         computerTable.getColumns().addAll(columnList);
+        ComputerResponse result = soapHandler.connectAndSend(true, "","");
+        computerTable.getItems().addAll(result.getComputerList());
+
+        List<Object> manufacturers = result.getComputerList().stream().map(x -> x.getManufacturer()).distinct().collect(Collectors.toList());
+
+        comboManufacturer.getItems().addAll(manufacturers);
+        comboManufacturer.getSelectionModel().selectFirst();
+
+
+
 
         listComputersWithMatrix.addEventHandler(MouseEvent.MOUSE_CLICKED, (mouseEvent -> {
-            SoapHandler soapHandler = new SoapHandler();
-            ComputerResponse result = soapHandler.connectAndSend(true, "Asus", "16x9");
-            System.out.println(result);
+
         }));
 
 

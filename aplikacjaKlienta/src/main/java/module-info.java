@@ -7,6 +7,6 @@ module com.example.aplikacjaklienta {
 
 
     opens com.example.aplikacjaklienta to javafx.fxml, jakarta.xml.soap;
-    opens  com.bartek.soap to jakarta.xml.bind;
+    opens  com.bartek.soap to jakarta.xml.bind, javafx.fxml, javafx.base;
     exports com.example.aplikacjaklienta;
 }
