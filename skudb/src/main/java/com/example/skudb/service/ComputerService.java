@@ -41,6 +41,9 @@ public class ComputerService {
             computers = computerRepository.findAll();
             computers = screenProportions(computers, request.getResolution());
         }
+        else if(request.getMatrixType() != null && !request.getMatrixType().isEmpty()) {
+            computers = computerRepository.findComputersByMatrixTexture(request.getMatrixType());
+        }
         return computerIntoComputerList(computers);
     }
 

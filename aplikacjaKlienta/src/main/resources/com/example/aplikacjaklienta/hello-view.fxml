@@ -20,7 +20,7 @@
         <Button fx:id="countManufacturer" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
         <Label fx:id="displayManufacturerCount" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
         <Label fx:id="chooseMatrixLabel" GridPane.columnIndex="4" GridPane.rowIndex="0"/>
-        <ComboBox fx:id="comboMatrixProportions" GridPane.columnIndex="5" GridPane.rowIndex="0"/>
+        <ComboBox fx:id="comboMatrixType" GridPane.columnIndex="5" GridPane.rowIndex="0"/>
         <Button fx:id="listComputersWithMatrix" GridPane.columnIndex="6" GridPane.rowIndex="0"/>
 
     </GridPane>

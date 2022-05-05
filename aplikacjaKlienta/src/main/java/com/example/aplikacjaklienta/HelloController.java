@@ -37,7 +37,7 @@ public class HelloController {
     private Label chooseMatrixLabel;
 
     @FXML
-    private ComboBox comboMatrixProportions;
+    private ComboBox comboMatrixType;
 
     @FXML
     private Button listComputersWithMatrix;
@@ -97,15 +97,23 @@ public class HelloController {
         computerTable.getItems().addAll(result.getComputerList());
 
         List<Object> manufacturers = result.getComputerList().stream().map(x -> x.getManufacturer()).distinct().collect(Collectors.toList());
+        List<Object> matrixType = result.getComputerList().stream().map(x -> x.getMatrixTexture()).distinct().collect(Collectors.toList());
 
         comboManufacturer.getItems().addAll(manufacturers);
         comboManufacturer.getSelectionModel().selectFirst();
 
+        countManufacturer.addEventHandler(MouseEvent.MOUSE_CLICKED, (mouseEvent -> {
+            displayManufacturerCount.setText("liczba laptopów: " + result.getComputerList().stream().filter(x -> x.getManufacturer().equals(comboManufacturer.getSelectionModel().getSelectedItem())).count());
+        }));
 
-
+        comboMatrixType.getItems().addAll(matrixType);
+        comboMatrixType.getSelectionModel().selectFirst();
 
         listComputersWithMatrix.addEventHandler(MouseEvent.MOUSE_CLICKED, (mouseEvent -> {
-
+            computerTable.getItems().clear();
+            ComputerResponse computerResult = soapHandler.connectAndSend(false, "", "", )
+            computerTable.getItems().addAll(result.getComputerList().stream().filter(x -> x.getMatrixTexture().equals(comboMatrixType.getSelectionModel().getSelectedItem())).collect(Collectors.toList()));
+            computerTable.refresh();
         }));
 
 

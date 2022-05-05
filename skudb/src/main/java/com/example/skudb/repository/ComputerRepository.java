@@ -12,4 +12,5 @@ public interface ComputerRepository extends JpaRepository<Computer, Long> {
     List<Computer> findComputersByResolution(String resolution);
 
     List<Computer> findComputersByManufacturerAndResolution(String manufacturer, String resolution);
+    List<Computer> findComputersByMatrixTexture(String texture);
 }

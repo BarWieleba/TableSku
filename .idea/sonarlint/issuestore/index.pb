@@ -250,8 +250,6 @@ x
 Hskudb/src/main/java/com/example/skudb/controller/ComputerController.java,5\2\52c7fdbd0ca45477aff78b03874c990838781300
 h
 8src/main/java/com/example/tablesku/file/ClassReader.java,3\f\3f5afc80b73d2d5e899108c42a52dd0b3dda1bc5
-x
-Hskudb/src/main/java/com/example/skudb/repository/ComputerRepository.java,c\0\c0faa85ca44a4a434b1738f040e502563965d9ec
 f
 6aplikacjaKlienta/.mvn/wrapper/maven-wrapper.properties,9\e\9e58693a998288c095bbd177ab9a5d56019e15e0
 v

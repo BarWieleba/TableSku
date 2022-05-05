@@ -7,6 +7,7 @@
                 <xs:element name="manufacturer" type="xs:string"/>
                 <xs:element name="resolution" type="xs:string"/>
                 <xs:element name="everything" type="xs:boolean"/>
+                <xs:element name="matrixType" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
