@@ -70,7 +70,7 @@ public class SoapHandler {
         return result;
     }
 
-    public ComputerResponse connectAndSend(boolean everything, String manufacturer, String resolution) {
+    public ComputerResponse connectAndSend(boolean everything, String manufacturer, String resolution, String matrixType) {
         ComputerResponse computerList = null;
         String input = "" +
                 "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
@@ -81,6 +81,7 @@ public class SoapHandler {
                 "            <everything>" + everything + "</everything>\n" +
                 "            <manufacturer>" + manufacturer + "</manufacturer>\n" +
                 "            <resolution>" + resolution + "</resolution>\n" +
+                "            <matrixType>" + matrixType + "</matrixType>\n" +
                 "        </std:request>\n" +
                 "    </soap:Body>\n" +
                 "</soap:Envelope>";

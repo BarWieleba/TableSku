@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Window;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -41,6 +42,17 @@ public class HelloController {
 
     @FXML
     private Button listComputersWithMatrix;
+
+    @FXML
+    private Label matrixProportionsLabel;
+
+    @FXML
+    private TextField matrixProportions;
+
+    @FXML
+    private Button getCompByMatrix;
+    @FXML
+    private Button reset;
 
     @FXML
     private TableView<ComputerResponse.ComputerList> computerTable;
@@ -79,6 +91,11 @@ public class HelloController {
         chooseMatrixLabel.setLabelFor(listComputersWithMatrix);
         listComputersWithMatrix.setText("lista laptopów z określoną matrycą");
 
+        matrixProportionsLabel.setText("Proporcje ekranu");
+        getCompByMatrix.setText("Znajdź komputery po proporcjach ekranu");
+
+        reset.setText("Reset tabeli");
+
         ClassReader classReader = new ClassReader(ComputerResponse.ComputerList.class);
         classReader.readClassMethods();
 
@@ -93,11 +110,11 @@ public class HelloController {
         }
         columnList.get(0).setVisible(false);
         computerTable.getColumns().addAll(columnList);
-        ComputerResponse result = soapHandler.connectAndSend(true, "","");
+        ComputerResponse result = soapHandler.connectAndSend(true, "","", "");
         computerTable.getItems().addAll(result.getComputerList());
 
         List<Object> manufacturers = result.getComputerList().stream().map(x -> x.getManufacturer()).distinct().collect(Collectors.toList());
-        List<Object> matrixType = result.getComputerList().stream().map(x -> x.getMatrixTexture()).distinct().collect(Collectors.toList());
+        List<Object> matrixType = result.getComputerList().stream().filter(x -> !x.getMatrixTexture().equals("")).map(x -> x.getMatrixTexture()).distinct().collect(Collectors.toList());
 
         comboManufacturer.getItems().addAll(manufacturers);
         comboManufacturer.getSelectionModel().selectFirst();
@@ -111,8 +128,42 @@ public class HelloController {
 
         listComputersWithMatrix.addEventHandler(MouseEvent.MOUSE_CLICKED, (mouseEvent -> {
             computerTable.getItems().clear();
-            ComputerResponse computerResult = soapHandler.connectAndSend(false, "", "", )
-            computerTable.getItems().addAll(result.getComputerList().stream().filter(x -> x.getMatrixTexture().equals(comboMatrixType.getSelectionModel().getSelectedItem())).collect(Collectors.toList()));
+            ComputerResponse computerResult = soapHandler.connectAndSend(false, "", "", (String) comboMatrixType.getSelectionModel().getSelectedItem());
+            computerTable.getItems().addAll(computerResult.getComputerList());
+            computerTable.refresh();
+        }));
+
+        getCompByMatrix.addEventHandler(MouseEvent.MOUSE_CLICKED, (mouseEvent -> {
+
+            if(!matrixProportions.getText().isEmpty()) {
+                try {
+                    String[] matrixData = matrixProportions.getText().split("x");
+                    if(matrixData.length != 2){
+                        throw new Exception("Bad data");
+                    }
+                    Integer.parseInt(matrixData[0]);
+                    Integer.parseInt(matrixData[1]);
+                } catch (Exception e){
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Niepoprawne dane");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Proszę wprowadzić proporcje ekranu w foramcie \"AxB\" np. \"16x9\"");
+
+                    alert.showAndWait();
+                    return;
+                }
+
+                ComputerResponse computerResponse = soapHandler.connectAndSend(false, "", matrixProportions.getText(), "");
+                computerTable.getItems().clear();
+                computerTable.getItems().addAll(computerResponse.getComputerList());
+                computerTable.refresh();
+            }
+        }));
+
+
+        reset.addEventHandler(MouseEvent.MOUSE_CLICKED, (mouseEvent -> {
+            computerTable.getItems().clear();
+            computerTable.getItems().addAll(result.getComputerList());
             computerTable.refresh();
         }));
 
