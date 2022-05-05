@@ -1,10 +1,24 @@
 package com.example.aplikacjaklienta;
 
+import com.bartek.soap.ComputerResponse;
+import com.example.aplikacjaklienta.file.ClassReader;
+import com.example.aplikacjaklienta.soap.SoapHandler;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseEvent;
+
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class HelloController {
     @FXML
@@ -49,6 +63,7 @@ public class HelloController {
             "Napęd"
     };
 
+    private LinkedList<Field> fields = new LinkedList<>(Arrays.stream(ComputerResponse.ComputerList.class.getDeclaredFields()).collect(Collectors.toList()));
     @FXML
     void initialize() {
         chooseManufacturer.setText("Wybór producenta");
@@ -59,6 +74,26 @@ public class HelloController {
         chooseMatrixLabel.setText("Wybór matrycy");
         chooseMatrixLabel.setLabelFor(listComputersWithMatrix);
         listComputersWithMatrix.setText("lista laptopów z określoną matrycą");
+
+        ClassReader classReader = new ClassReader(ComputerResponse.ComputerList.class);
+        classReader.readClassMethods();
+
+        List<TableColumn<ComputerResponse.ComputerList, String>> columnList = new ArrayList<>();
+        int i = 0;
+        for(String columnHeader : columnNames) {
+            TableColumn<ComputerResponse.ComputerList, String> tableColumn = new TableColumn<>(columnHeader);
+            tableColumn.setCellValueFactory(new PropertyValueFactory<>(fields.get(i).getName()));
+            tableColumn.setCellFactory(TextFieldTableCell.<ComputerResponse.ComputerList>forTableColumn());
+            columnList.add(tableColumn);
+            i++;
+        }
+        computerTable.getColumns().addAll(columnList);
+
+        listComputersWithMatrix.addEventHandler(MouseEvent.MOUSE_CLICKED, (mouseEvent -> {
+            SoapHandler soapHandler = new SoapHandler();
+            ComputerResponse result = soapHandler.connectAndSend(true, "Asus", "16x9");
+            System.out.println(result);
+        }));
 
 
     }

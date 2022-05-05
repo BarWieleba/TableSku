@@ -1,0 +1,33 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://bartek.com/soap"
+           targetNamespace="http://bartek.com/soap">
+
+    <xs:element name="computerResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="count" type="xs:long"/>
+                <xs:element name="computerList" maxOccurs="unbounded" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="id"/>
+                            <xs:element name="manufacturer"/>
+                            <xs:element name="screenSize"/>
+                            <xs:element name="resolution"/>
+                            <xs:element name="matrixTexture"/>
+                            <xs:element name="packaging"/>
+                            <xs:element name="processor"/>
+                            <xs:element name="coreCount"/>
+                            <xs:element name="processorSpeed"/>
+                            <xs:element name="ramSize"/>
+                            <xs:element name="driveSize"/>
+                            <xs:element name="driveType"/>
+                            <xs:element name="graphics"/>
+                            <xs:element name="videoMemory"/>
+                            <xs:element name="os"/>
+                            <xs:element name="recorder"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
