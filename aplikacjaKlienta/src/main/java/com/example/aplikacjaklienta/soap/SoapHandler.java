@@ -66,7 +66,6 @@ public class SoapHandler {
             }
 
         }
-
         return result;
     }
 
@@ -139,28 +138,28 @@ public class SoapHandler {
                         if(j==7){
                             dataDto.setCoreCount(content);
                         }
-                        if(j==7){
+                        if(j==8){
                             dataDto.setProcessorSpeed(content);
                         }
-                        if(j==8){
+                        if(j==9){
                             dataDto.setRamSize(content);
                         }
-                        if(j==9){
+                        if(j==10){
                             dataDto.setDriveSize(content);
                         }
-                        if(j==10){
+                        if(j==11){
                             dataDto.setDriveType(content);
                         }
-                        if(j==11){
+                        if(j==12){
                             dataDto.setGraphics(content);
                         }
-                        if(j==12){
+                        if(j==13){
                             dataDto.setVideoMemory(content);
                         }
-                        if(j==13){
+                        if(j==14){
                             dataDto.setOs(content);
                         }
-                        if(j==14){
+                        if(j==15){
                             dataDto.setRecorder(content);
                         }
                     }

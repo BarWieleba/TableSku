@@ -234,12 +234,8 @@ C
 skudb/mvnw.cmd,f\f\ffa18d9983a4fc42e13a1eb3ee1651cb1996e2ae
 N
 src/main/java/module-info.java,1\c\1c89a5491fbfda3fb050196d6a239f20200296e7
-k
-;skudb/src/main/java/com/example/skudb/SkudbApplication.java,c\6\c64377fd72108d42a9ee41a4e9ec41fb954b178c
 s
 Cskudb/src/main/java/com/example/skudb/service/WebServiceConfig.java,2\2\2275904612995cbf4e8e851ca9e19538f6f227d6
-j
-:skudb/src/main/java/com/example/skudb/entity/Computer.java,1\9\1992c574b99eb1353f1a6e520f1a7137a63191d5
 k
 ;src/main/java/com/example/tablesku/entity/ComputerList.java,f\d\fd25e260b2dc423b84f1def25d09061cf1556157
 g
