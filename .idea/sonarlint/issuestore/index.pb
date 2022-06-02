@@ -240,8 +240,6 @@ k
 ;src/main/java/com/example/tablesku/entity/ComputerList.java,f\d\fd25e260b2dc423b84f1def25d09061cf1556157
 g
 7src/main/java/com/example/tablesku/entity/Computer.java,9\4\9429ba6e1dbd40d8f82e4c0e28fdbde0da0f5c97
-n
->src/main/java/com/example/tablesku/file/FileContentReader.java,f\2\f21c83a23af04e0164a1dc727f6561e60de37354
 x
 Hskudb/src/main/java/com/example/skudb/controller/ComputerController.java,5\2\52c7fdbd0ca45477aff78b03874c990838781300
 h
