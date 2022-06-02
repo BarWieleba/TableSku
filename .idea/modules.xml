@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TableSku.iml" filepath="$PROJECT_DIR$/TableSku.iml" />
       <module fileurl="file://$PROJECT_DIR$/aplikacjaKlienta/aplikacjaKlienta.iml" filepath="$PROJECT_DIR$/aplikacjaKlienta/aplikacjaKlienta.iml" />
+      <module fileurl="file://$PROJECT_DIR$/automat/automat.iml" filepath="$PROJECT_DIR$/automat/automat.iml" />
       <module fileurl="file://$PROJECT_DIR$/skudb/skudb.iml" filepath="$PROJECT_DIR$/skudb/skudb.iml" />
     </modules>
   </component>

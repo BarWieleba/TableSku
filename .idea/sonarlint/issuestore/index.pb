@@ -260,8 +260,6 @@ v
 F.idea/libraries/Maven__org_glassfish_external_management_api_3_2_3.xml,3\b\3bb0d70e07e3d1f99c4cb66cc2be059530f4f6e2
 m
 =.idea/libraries/Maven__org_jvnet_mimepull_mimepull_1_9_15.xml,2\a\2a834fd3c05e6658f6fe4ed15989e87f502c4877
-n
->.idea/libraries/Maven__com_sun_xml_bind_jaxb_core_4_0_0_M4.xml,6\2\624b568f8dca7e95999531b5157ebe8f376ef037
 u
 E.idea/libraries/Maven__com_fasterxml_woodstox_woodstox_core_6_2_8.xml,c\2\c2e23b0d34d0452e7b38cfaed1ba0d8c32ba1853
 w
@@ -270,8 +268,6 @@ x
 H.idea/libraries/Maven__com_sun_xml_messaging_saaj_saaj_impl_3_0_0_M2.xml,4\0\400fd2e4b7e3e6f7d51b4d5cdf513289ec39d421
 t
 D.idea/libraries/Maven__com_sun_xml_fastinfoset_FastInfoset_2_1_0.xml,0\8\08f77b9bbf6ed581f1d77474fa9baffcf115c1aa
-n
->.idea/libraries/Maven__com_sun_xml_bind_jaxb_impl_4_0_0_M4.xml,7\b\7b9b69cad207740d050d1144ad764724ba970641
 s
 C.idea/libraries/Maven__org_eclipse_angus_angus_activation_1_0_0.xml,1\3\1339af313527812d609ed734d23f47d9b6b39a1b
 n
