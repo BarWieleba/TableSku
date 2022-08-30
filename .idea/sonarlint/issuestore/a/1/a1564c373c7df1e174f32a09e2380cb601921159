@@ -1,0 +1,28 @@
+
+c
+java:S1192&"NDefine a constant instead of duplicating this literal "Authorization" 4 times.(”¼Ù>
+_
+java:S1192&"JDefine a constant instead of duplicating this literal "auth_data" 3 times.(”¼Ù>
+t
+java:S1488("^Immediately return this expression instead of assigning it to the temporary variable "result".(¤¦ýµ
+y
+java:S14880"^Immediately return this expression instead of assigning it to the temporary variable "result".(¡¦ñ®ùÿÿÿÿ
+h	java:S116"NRename this field "TAG" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öª‰Ñúÿÿÿÿ
+<
+java:S1170"!Make this final field static too.(öª‰Ñúÿÿÿÿ
+u
+java:S1128"SRemove this unused import 'com.example.tablesku.allegroapi.entity.AuthTokenEntity'.(ºèÚøÿÿÿÿ8‹‚Ýù®0
+o
+java:S1128"RRemove this unused import 'com.example.tablesku.allegroapi.entity.UserAuthEntity'.(œ¿Š´8‹‚Ýù®0
+c
+java:S1128"ARemove this unused import 'com.example.tablesku.entity.Computer'.(…Í•ôýÿÿÿÿ8‹‚Ýù®0
+l
+java:S1128"JRemove this unused import 'com.fasterxml.jackson.core.type.TypeReference'.(ãÐß¤ÿÿÿÿÿ8‹‚Ýù®0
+M
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8Œ‚Ýù®0
+M
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8Œ‚Ýù®0
+K
+java:S1068"0Remove this unused "objectMapper" private field.(“»‚Šûÿÿÿÿ
+B
+java:S1068"'Remove this unused "TAG" private field.(öª‰Ñúÿÿÿÿ

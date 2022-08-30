@@ -1,0 +1,53 @@
+
+a	java:S112ì"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112¦"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ
+a	java:S112×"FDefine and throw a dedicated exception instead of using a generic one.(ò‚ÇŸıÿÿÿÿ
+E
+java:S3740H"/Provide the parametrized type for this generic.(Úƒ®ê
+D
+java:S1604"(Make this anonymous inner class a lambda(¶†–Ôúÿÿÿÿ
+D
+java:S1604¨"(Make this anonymous inner class a lambda(—çŒàıÿÿÿÿ
+D
+java:S1604±"(Make this anonymous inner class a lambda(ÑÑæÙüÿÿÿÿ
+D
+java:S1604÷"(Make this anonymous inner class a lambda(×ëòøùÿÿÿÿ
+?
+java:S1604²"(Make this anonymous inner class a lambda(ìì·â
+?
+java:S1604¿"(Make this anonymous inner class a lambda(í§ò¨
+c
+java:S2259ñ"LA "NullPointerException" could be thrown; "userAuthEntity" is nullable here.(£¥ãÛ
+c
+java:S2095Ç"LUse try-with-resources or close this "BufferedWriter" in a "finally" clause.(ª¹½
+@
+java:S1197P"*Move the array designators [] to the type.(ûğúß
+R	java:S125˜"<This block of commented-out lines of code should be removed.(ÔèË…
+T	java:S106è"9Replace this use of System.out or System.err by a logger.(¬Šàıÿÿÿÿ
+Y
+java:S1117ƒ"=Rename "saveFile" which hides the field declared at line 247.(Êùƒßÿÿÿÿÿ
+Y
+java:S1117‘"=Rename "saveFile" which hides the field declared at line 247.(Êùƒßÿÿÿÿÿ
+T	java:S106¤"9Replace this use of System.out or System.err by a logger.(Ì†’Øÿÿÿÿÿ
+O	java:S106«"9Replace this use of System.out or System.err by a logger.(†šØÀ
+X
+java:S1854Â"ARemove this useless assignment to local variable "itemsEntities".(½Î‘à
+]
+java:S1854æ"FRemove this useless assignment to local variable "errorAndDescEntity".(¹‹Àò
+S
+java:S1481ß"7Remove this unused "errorAndDescEntity" local variable.(ó³Ëøÿÿÿÿ
+O	java:S106ó"9Replace this use of System.out or System.err by a logger.(´Ûı
+O	java:S106ú"9Replace this use of System.out or System.err by a logger.(ò†œù
+T	java:S106€"9Replace this use of System.out or System.err by a logger.(¦öœªıÿÿÿÿ
+T	java:S106„"9Replace this use of System.out or System.err by a logger.(¢£†ïùÿÿÿÿ
+T	java:S106ˆ"9Replace this use of System.out or System.err by a logger.(öÜ·¾ÿÿÿÿÿ
+T	java:S106Œ"9Replace this use of System.out or System.err by a logger.(Ë•øÔûÿÿÿÿ
+Y	java:S125¢"<This block of commented-out lines of code should be removed.(äÊ¤8Öñïü®0
+C
+java:S1874®",Remove this use of "exec"; it is deprecated.(¢ÔÇ
+V
+java:S3398Æ"?Move this method into the anonymous class declared at line 247.(óı˜…
+[
+java:S3398×"?Move this method into the anonymous class declared at line 306.(ò‚ÇŸıÿÿÿÿ
+[
+java:S3398"?Move this method into the anonymous class declared at line 319.(»Åôşÿÿÿÿ

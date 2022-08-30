@@ -1,0 +1,16 @@
+
+y
+java:S1488"^Immediately return this expression instead of assigning it to the temporary variable "result".(¾¿£ƒúÿÿÿÿ
+h	java:S116"NRename this field "TAG" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öª‰Ñúÿÿÿÿ
+<
+java:S1170"!Make this final field static too.(öª‰Ñúÿÿÿÿ
+q
+java:S1128"ORemove this unused import 'com.example.tablesku.allegroapi.entity.ItemsEntity'.(ô„çÂþÿÿÿÿ8¾Ö‰ù®0
+H
+java:S1128"+Remove this unused import 'org.ini4j.Wini'.(¬ÏÐê8¾Ö‰ù®0
+F
+java:S1128	")Remove this unused import 'java.io.File'.(†Ð¥Å8¾Ö‰ù®0
+K
+java:S1068"0Remove this unused "objectMapper" private field.(“»‚Šûÿÿÿÿ
+B
+java:S1068"'Remove this unused "TAG" private field.(öª‰Ñúÿÿÿÿ

@@ -1,0 +1,11 @@
+
+Z	java:S112R"FDefine and throw a dedicated exception instead of using a generic one.(õú¹
+Z	java:S112w"FDefine and throw a dedicated exception instead of using a generic one.(õú¹
+^
+java:S1192“"HDefine a constant instead of duplicating this literal "charset" 3 times.(’³²Q
+\
+java:S1192“"FDefine a constant instead of duplicating this literal "utf-8" 3 times.(’³²Q
+ˆ
+java:S1319Z"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(ÆŽó±ýÿÿÿÿ
+ˆ
+java:S1319f"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(Àß·ùùÿÿÿÿ

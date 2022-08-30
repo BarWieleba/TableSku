@@ -3,8 +3,10 @@ package com.example.tablesku.allegroapi.entity;
 import java.util.List;
 
 public class ItemEntity {
-    private Integer id;
+    private String id;
     private String name;
+
+    private VendorEntity vendor;
     private SellerEntity seller;
     private PromotionEntity promotion;
     private DeliveryEntity delivery;
@@ -13,12 +15,15 @@ public class ItemEntity {
     private StockEntity stock;
     private CategoryEntity category;
 
+    private PublicationEntity publication;
+
     public ItemEntity() {
     }
 
-    public ItemEntity(Integer id, String name, SellerEntity seller, PromotionEntity promotion, DeliveryEntity delivery, List<ImageEntity> images, SellingModeEntity sellingMode, StockEntity stock, CategoryEntity category) {
+    public ItemEntity(String id, String name, VendorEntity vendor, SellerEntity seller, PromotionEntity promotion, DeliveryEntity delivery, List<ImageEntity> images, SellingModeEntity sellingMode, StockEntity stock, CategoryEntity category, PublicationEntity publication) {
         this.id = id;
         this.name = name;
+        this.vendor = vendor;
         this.seller = seller;
         this.promotion = promotion;
         this.delivery = delivery;
@@ -26,13 +31,14 @@ public class ItemEntity {
         this.sellingMode = sellingMode;
         this.stock = stock;
         this.category = category;
+        this.publication = publication;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -98,5 +104,21 @@ public class ItemEntity {
 
     public void setCategory(CategoryEntity category) {
         this.category = category;
+    }
+
+    public PublicationEntity getPublication() {
+        return publication;
+    }
+
+    public void setPublication(PublicationEntity publication) {
+        this.publication = publication;
+    }
+
+    public VendorEntity getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(VendorEntity vendor) {
+        this.vendor = vendor;
     }
 }

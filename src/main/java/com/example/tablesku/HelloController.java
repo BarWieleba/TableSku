@@ -1,8 +1,6 @@
 package com.example.tablesku;
 
-import com.example.tablesku.allegroapi.entity.AuthTokenEntity;
-import com.example.tablesku.allegroapi.entity.ItemsEntity;
-import com.example.tablesku.allegroapi.entity.UserAuthEntity;
+import com.example.tablesku.allegroapi.entity.*;
 import com.example.tablesku.allegroapi.exceptions.ErrorAndDescEntity;
 import com.example.tablesku.allegroapi.network.ConnectionAllegro;
 import com.example.tablesku.allegroapi.network.ConnectionAllegroDownload;
@@ -13,6 +11,7 @@ import com.example.tablesku.file.ClassReader;
 import com.example.tablesku.file.FileContentReader;
 import com.example.tablesku.network.ConnectionHelper;
 import com.example.tablesku.validators.ComputerValidator;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -22,8 +21,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -31,10 +28,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -69,13 +63,19 @@ public class HelloController {
     private Button downloadFromAllegro;
 
     @FXML
+    private Button downloadFromJson;
+
+    @FXML
+    private Button uploadToJson;
+
+    @FXML
     private TableView computerTable;
 
     @FXML
     private Button addNewRow;
 
     private enum FileType {
-        TXT, XML, DB;
+        TXT, XML, DB, JSON;
     }
     private String columnNames[] = {
             "Producent",
@@ -99,6 +99,8 @@ public class HelloController {
 
     private AuthTokenEntity token;
 
+    private ItemsWrapperEntity itemsEntities;
+
     @FXML
     void initialize() {
         downloadFromTxt.setText("Wczytaj dane z TXT");
@@ -119,6 +121,11 @@ public class HelloController {
         downloadFromAllegro.setDisable(true);
         downloadFromAllegro.setTooltip(new Tooltip("Przycisk jest wyłączony\n do czasu połączenia się z Allegro"));
 
+        downloadFromJson.setText("Wczytaj dane z JSON");
+        downloadFromJson.setUserData(FileType.JSON);
+        uploadToJson.setText("Zapisz dane do JSON");
+        uploadToJson.setUserData(FileType.JSON);
+
 
         downloadFromTxt.addEventHandler(MouseEvent.MOUSE_CLICKED, chooseFile);
         downloadFromXml.addEventHandler(MouseEvent.MOUSE_CLICKED, chooseFile);
@@ -128,6 +135,8 @@ public class HelloController {
         exportToDb.addEventHandler(MouseEvent.MOUSE_CLICKED, saveFile);
         loginToAllegro.addEventHandler(MouseEvent.MOUSE_CLICKED, loginToAllegroAction);
         downloadFromAllegro.addEventHandler(MouseEvent.MOUSE_CLICKED, downloadLaptopsFromAllegro);
+        downloadFromJson.addEventHandler(MouseEvent.MOUSE_CLICKED, chooseFile);
+        uploadToJson.addEventHandler(MouseEvent.MOUSE_CLICKED, saveFile);
 
         ClassReader classReader = new ClassReader(Computer.class);
         classReader.readClassMethods();
@@ -237,6 +246,25 @@ public class HelloController {
                     }
                     break;
                 }
+                case JSON: {
+                    fileChooser.setTitle("Otwórz plik JSON");
+                    FileChooser.ExtensionFilter extensionFilterJson = new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
+                    fileChooser.getExtensionFilters().add(extensionFilterJson);
+
+                    File openedFile = fileChooser.showOpenDialog(new Stage());
+                    if(openedFile!=null) {
+                        ObjectMapper mapper = new ObjectMapper();
+                        try {
+                            List<Computer> computers = new ObjectMapper().readValue(openedFile.getAbsoluteFile(), new TypeReference<List<Computer>>(){});
+                            ObservableList<Computer> computerObservableList = FXCollections.observableList(computers);
+                            computerTable.setItems(computerObservableList);
+                            computerTable.setEditable(true);
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    break;
+                }
                 default: {
                     fileChooser.setTitle("Otwórz plik XML");
                 }
@@ -259,7 +287,7 @@ public class HelloController {
                     File saveFile = fileChooser.showSaveDialog(new Stage());
                     if(saveFile != null) {
                         try {
-                            safeToTxtFile(saveFile, computersToSave);
+                            saveToTxtFile(saveFile, computersToSave);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -295,6 +323,21 @@ public class HelloController {
                     }
                     break;
                 }
+
+                case JSON: {
+                    fileChooser.setTitle("Zapisz plik JSON");
+                    FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
+                    fileChooser.getExtensionFilters().add(extensionFilter);
+                    File saveFile = fileChooser.showSaveDialog(new Stage());
+                    if(saveFile != null) {
+                        try {
+                            saveToJSONFile(saveFile, computersToSave);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    break;
+                }
                 default: {
                     System.out.println("Zapisz plik");
                 }
@@ -319,16 +362,38 @@ public class HelloController {
     private final EventHandler<MouseEvent> downloadLaptopsFromAllegro = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-            List<ItemsEntity> itemsEntities = downloadLaptopsFromAllegroAPI();
+            itemsEntities = downloadLaptopsFromAllegroAPI();
+            List<Computer> computers = new ArrayList<>();
+            for(ItemEntity item : itemsEntities.getItems().getRegular()){
+                String[] name = item.getName().split(" ");
+                ClassReader classReader = new ClassReader(Computer.class);
+                classReader.readClassMethods();
+                List<Method> methods = classReader.getSetMethods();
+                Computer computer = new Computer();
+                for(int i = 0; i< name.length; i++) {
+                    try {
+                        methods.get(i).invoke(computer, name[i]);
+                    } catch (IllegalAccessException | InvocationTargetException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                computers.add(computer);
+            }
+            computerTable.getItems().addAll(computers);
         }
     };
 
-    private void safeToTxtFile(File saveFile, ObservableList<Computer> list) throws IOException {
+    private void saveToTxtFile(File saveFile, ObservableList<Computer> list) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(saveFile));
         for(Computer computer : list) {
             writer.write(computer.toFile());
         }
         writer.close();
+    }
+
+    private void saveToJSONFile(File saveFile, ObservableList<Computer> list) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(saveFile, list);
     }
 
     private void showAlert() {
@@ -410,18 +475,18 @@ public class HelloController {
         return authTokenEntity;
     }
 
-    private List<ItemsEntity> downloadLaptopsFromAllegroAPI() {
+    private ItemsWrapperEntity downloadLaptopsFromAllegroAPI() {
         ConnectionAllegroDownload connectionAllegroDownload = new ConnectionAllegroDownload();
         try {
             Map<String, Object> laptopsFromAllegroAPI = connectionAllegroDownload.getLaptops(token);
             if((int)laptopsFromAllegroAPI.get(ConnectionDictionary.RESPONSE_CODE) == 200) {
-                //List<ItemsEntity> itemsEntities = new ObjectMapper().readValue(String.valueOf(laptopsFromAllegroAPI.get(ConnectionDictionary.JSON_RESULT)), ItemsEntity.class);
+                ItemsWrapperEntity itemsEntities = new ObjectMapper().readValue(String.valueOf(laptopsFromAllegroAPI.get(ConnectionDictionary.JSON_RESULT)), ItemsWrapperEntity.class);
                 return itemsEntities;
             }
         } catch (Exception e){
             e.printStackTrace();
         }
-        return new ArrayList<>();
+        return null;
     }
 
     private void openBrowser(UserAuthEntity userAuthEntity) throws IOException{

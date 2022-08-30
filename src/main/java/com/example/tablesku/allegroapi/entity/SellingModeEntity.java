@@ -6,14 +6,17 @@ public class SellingModeEntity {
     private Integer popularity;
     private String popularityRange;
 
+    private Integer bidCount;
+
     public SellingModeEntity() {
     }
 
-    public SellingModeEntity(String format, PriceEntity price, Integer popularity, String popularityRange) {
+    public SellingModeEntity(String format, PriceEntity price, Integer popularity, String popularityRange, Integer bidCount) {
         this.format = format;
         this.price = price;
         this.popularity = popularity;
         this.popularityRange = popularityRange;
+        this.bidCount = bidCount;
     }
 
     public String getFormat() {
@@ -46,5 +49,13 @@ public class SellingModeEntity {
 
     public void setPopularityRange(String popularityRange) {
         this.popularityRange = popularityRange;
+    }
+
+    public Integer getBidCount() {
+        return bidCount;
+    }
+
+    public void setBidCount(Integer bidCount) {
+        this.bidCount = bidCount;
     }
 }
