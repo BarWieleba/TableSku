@@ -1,0 +1,21 @@
+
+\	java:S112Ç"FDefine and throw a dedicated exception instead of using a generic one.(ÃÔ÷ı
+>
+java:S1604"(Make this anonymous inner class a lambda(€«Î
+u
+java:S1450u"ZRemove the "classReader" field and declare it as a local variable in the relevant methods.(Î§Ë•ùÿÿÿÿ
+S	java:S106{"9Replace this use of System.out or System.err by a logger.(§€È—üÿÿÿÿ
+O	java:S106‚"9Replace this use of System.out or System.err by a logger.(ÿÒüë
+V
+java:S6213":Rename this variable to not match a restricted identifier.(ÛĞğüÿÿÿÿ
+V
+java:S6213»":Rename this variable to not match a restricted identifier.(ÍÍÀ¾úÿÿÿÿ
+R	java:S125Ê"<This block of commented-out lines of code should be removed.(¤ôĞ·
+E
+java:S1128"/Remove this unused import 'javafx.event.Event'.(ô”áñ
+N
+java:S1128"3Remove this unused import 'javafx.event.EventType'.(—ŠÆıÿÿÿÿ
+D
+java:S1128")Remove this unused import 'java.net.URL'.(ñìÁ„üÿÿÿÿ
+P
+java:S1128"5Remove this unused import 'java.util.ResourceBundle'.(ıÆ£¯øÿÿÿÿ

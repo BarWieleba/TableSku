@@ -1,5 +1,8 @@
 package com.example.tablesku;
 
+import com.example.tablesku.allegroapi.entity.AuthTokenEntity;
+import com.example.tablesku.allegroapi.entity.UserAuthEntity;
+import com.example.tablesku.allegroapi.network.ConnectionAllegro;
 import com.example.tablesku.entity.Computer;
 import com.example.tablesku.entity.ComputerList;
 import com.example.tablesku.file.ClassReader;
@@ -14,6 +17,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -53,6 +58,12 @@ public class HelloController {
     private Button exportToDb;
 
     @FXML
+    private Button loginToAllegro;
+
+    @FXML
+    private Button downloadFromAllegro;
+
+    @FXML
     private TableView computerTable;
 
     @FXML
@@ -81,6 +92,8 @@ public class HelloController {
 
     private LinkedList<Field> fields = new LinkedList<>(Arrays.stream(Computer.class.getDeclaredFields()).collect(Collectors.toList()));
 
+    private AuthTokenEntity token;
+
     @FXML
     void initialize() {
         downloadFromTxt.setText("Wczytaj dane z TXT");
@@ -96,6 +109,11 @@ public class HelloController {
         exportToDb.setText("Eksportuj dane do bazy danych");
         exportToDb.setUserData(FileType.DB);
 
+        loginToAllegro.setText("Połącz z Allegro");
+        downloadFromAllegro.setText("Pobierz laptopy z Allegro");
+        downloadFromAllegro.setDisable(true);
+        downloadFromAllegro.setTooltip(new Tooltip("Przycisk jest wyłączony\n do czasu połączenia się z Allegro"));
+
 
         downloadFromTxt.addEventHandler(MouseEvent.MOUSE_CLICKED, chooseFile);
         downloadFromXml.addEventHandler(MouseEvent.MOUSE_CLICKED, chooseFile);
@@ -103,6 +121,7 @@ public class HelloController {
         uploadToXml.addEventHandler(MouseEvent.MOUSE_CLICKED, saveFile);
         importFromDb.addEventHandler(MouseEvent.MOUSE_CLICKED, chooseFile);
         exportToDb.addEventHandler(MouseEvent.MOUSE_CLICKED, saveFile);
+        loginToAllegro.addEventHandler(MouseEvent.MOUSE_CLICKED, loginToAllegroAction);
 
         ClassReader classReader = new ClassReader(Computer.class);
         classReader.readClassMethods();
@@ -278,6 +297,21 @@ public class HelloController {
         }
     };
 
+    private final EventHandler<MouseEvent> loginToAllegroAction = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent mouseEvent) {
+            token = loginToAllegroAPI();
+            downloadFromAllegro.setDisable(false);
+        }
+    };
+
+    private final EventHandler<MouseEvent> downloadLaptopsFromAllegro = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+
+        }
+    };
+
     private void safeToTxtFile(File saveFile, ObservableList<Computer> list) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(saveFile));
         for(Computer computer : list) {
@@ -293,5 +327,50 @@ public class HelloController {
         alert.setContentText("Careful with the next step!");
 
         alert.showAndWait();
+    }
+
+    private AuthTokenEntity loginToAllegroAPI() {
+        ConnectionAllegro connectionAllegro = new ConnectionAllegro();
+
+        UserAuthEntity userAuthEntity = null;
+        try {
+           userAuthEntity = connectionAllegro.getUserAuthInfo();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if(userAuthEntity == null) {
+            return null;
+        }
+        try{
+            Runtime rt = Runtime.getRuntime();
+            String url = userAuthEntity.getVerificationUriComplete();
+            rt.exec("rundll32 url.dll,FileProtocolHandler " + url);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        final AuthTokenEntity[] authTokenEntity = {null};
+
+        UserAuthEntity finalUserAuthEntity = userAuthEntity;
+        Thread newThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int i = 0;
+                while(i<12) {
+                    try {
+                        authTokenEntity[0] = connectionAllegro.getTokens(finalUserAuthEntity.getDeviceCode());
+                        if(Arrays.stream(authTokenEntity).findAny().isPresent()){
+                            break;
+                        }
+                        Thread.sleep(5000);
+                    } catch (Exception e) {
+                    }
+                    i++;
+                }
+            }
+        });
+        newThread.start();
+        return authTokenEntity[0];
     }
 }

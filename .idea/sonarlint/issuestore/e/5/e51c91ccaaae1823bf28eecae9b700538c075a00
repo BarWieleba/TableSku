@@ -1,0 +1,22 @@
+
+a	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¯ôÍĞşÿÿÿÿ
+J
+java:S3740"/Provide the parametrized type for this generic.(”è›Áûÿÿÿÿ
+J
+java:S3740)"/Provide the parametrized type for this generic.(şœó×úÿÿÿÿ
+p
+java:S1450<"ZRemove the "soapHandler" field and declare it as a local variable in the relevant methods.(Èô¡¥
+E
+java:S1197>"*Move the array designators [] to the type.(İäÃ‹şÿÿÿÿ
+`
+java:S1612t"JReplace this lambda with method reference 'ComputerList::getManufacturer'.(Úª§Ê
+f
+java:S1612u"KReplace this lambda with method reference 'ComputerList::getMatrixTexture'.(Ñë’Åÿÿÿÿÿ
+G
+java:S1602z",Remove useless curly braces around statement(ãÁüùÿÿÿÿ
+L
+java:S1128"6Remove this unused import 'javafx.event.EventHandler'.(º»û˜
+K
+java:S1128"0Remove this unused import 'javafx.stage.Window'.(Ñ€Ş‡øÿÿÿÿ
+K
+java:S1128"0Remove this unused import 'java.io.IOException'.(ªº»Úıÿÿÿÿ

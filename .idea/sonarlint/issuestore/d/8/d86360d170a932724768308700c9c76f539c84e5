@@ -1,0 +1,28 @@
+
+E
+java:S3740"/Provide the parametrized type for this generic.(ÉĞ®
+E
+java:S3740"/Provide the parametrized type for this generic.(ôßŠÿ
+‡
+java:S1319-"qThe return type of this method should be an interface such as "List" rather than the implementation "LinkedList".(“Ø 
+
+java:S13191"kThe type of "getMethods" should be an interface such as "List" rather than the implementation "LinkedList".(Î‘…
+Œ
+java:S13195"qThe return type of this method should be an interface such as "List" rather than the implementation "LinkedList".(ûæ£§ÿÿÿÿÿ
+
+java:S13199"kThe type of "setMethods" should be an interface such as "List" rather than the implementation "LinkedList".(“§ûã
+Œ
+java:S1319="qThe return type of this method should be an interface such as "List" rather than the implementation "LinkedList".(Î¿¤ªşÿÿÿÿ
+}
+java:S1319A"gThe type of "fields" should be an interface such as "List" rather than the implementation "LinkedList".(ÌÏÒã
+`
+java:S2259 "EA "NullPointerException" could be thrown; "method1" is nullable here.(Ê²ì³ıÿÿÿÿ
+_
+java:S2259 "DA "NullPointerException" could be thrown; "method" is nullable here.(Ê²ì³ıÿÿÿÿ
+g
+java:S6204"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ü½Ëu
+h
+java:S6204"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(¶¡ú¾
+A
+java:S1481"&Remove this unused "i" local variable.(ùó›Ìøÿÿÿÿ
+S	java:S106 "9Replace this use of System.out or System.err by a logger.(Ê²ì³ıÿÿÿÿ

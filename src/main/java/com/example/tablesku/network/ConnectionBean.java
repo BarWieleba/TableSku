@@ -64,7 +64,7 @@ public class ConnectionBean {
      * @return string
      * @throws IOException
      */
-    public String postXWwwFormUrlEncoded(String postfix, HashMap<String, Object> hashMap) throws IOException {
+    public String postXWwwFormUrlEncoded(String postfix, Map<String, Object> hashMap) throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
         for(Map.Entry<String, Object> entry : hashMap.entrySet()){
             stringBuilder
@@ -77,6 +77,18 @@ public class ConnectionBean {
         byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
         HttpURLConnection connection = openConnection(postfix, postData);
         sendData(connection, urlParameters);
+        if (connection.getResponseCode() != 200) {
+            throw new RuntimeException("Failed : HTTP error code : "
+                    + connection.getResponseCode());
+        }
+        BufferedReader br = new BufferedReader(new InputStreamReader(
+                (connection.getInputStream())));
+        return readData(br);
+    }
+
+    public String postXWwwFormUrlEncodedLogin(String postfix, Map<String, Object> hashMap) throws IOException {
+
+        HttpURLConnection connection = openConnectionHeaders(postfix, hashMap);
         if (connection.getResponseCode() != 200) {
             throw new RuntimeException("Failed : HTTP error code : "
                     + connection.getResponseCode());
@@ -125,6 +137,18 @@ public class ConnectionBean {
         if(authHeader != null && !authHeader.isEmpty()){
             conn.setRequestProperty("Authorization", authHeader);
         }
+        return conn;
+    }
+
+    private HttpURLConnection openConnectionHeaders(String postfix, Map<String, Object> headers) throws IOException {
+        URL address = new URL(serverAddress + postfix);
+        HttpURLConnection conn = (HttpURLConnection) address.openConnection();
+        conn.setDoOutput(true);
+        conn.setRequestMethod("POST");          //somehow android runtime sends all requests as POSTs even when request method is set to GET
+
+        headers.forEach((key, value) -> conn.setRequestProperty(key, value.toString()));
+        conn.setRequestProperty("charset", "utf-8");
+        conn.setUseCaches(false);
         return conn;
     }
 
