@@ -319,7 +319,7 @@ public class HelloController {
     private final EventHandler<MouseEvent> downloadLaptopsFromAllegro = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-            downloadLaptopsFromAllegroAPI();
+            List<ItemsEntity> itemsEntities = downloadLaptopsFromAllegroAPI();
         }
     };
 
@@ -410,13 +410,18 @@ public class HelloController {
         return authTokenEntity;
     }
 
-    private void downloadLaptopsFromAllegroAPI() {
+    private List<ItemsEntity> downloadLaptopsFromAllegroAPI() {
         ConnectionAllegroDownload connectionAllegroDownload = new ConnectionAllegroDownload();
         try {
-            Map<String, Object> laptopResults = connectionAllegroDownload.getLaptops(token);
+            Map<String, Object> laptopsFromAllegroAPI = connectionAllegroDownload.getLaptops(token);
+            if((int)laptopsFromAllegroAPI.get(ConnectionDictionary.RESPONSE_CODE) == 200) {
+                //List<ItemsEntity> itemsEntities = new ObjectMapper().readValue(String.valueOf(laptopsFromAllegroAPI.get(ConnectionDictionary.JSON_RESULT)), ItemsEntity.class);
+                return itemsEntities;
+            }
         } catch (Exception e){
             e.printStackTrace();
         }
+        return new ArrayList<>();
     }
 
     private void openBrowser(UserAuthEntity userAuthEntity) throws IOException{
