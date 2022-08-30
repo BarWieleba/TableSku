@@ -1,0 +1,10 @@
+
+
+java:S1488"dImmediately return this expression instead of assigning it to the temporary variable "computerList".(Ö¾’…øÿÿÿÿ
+
+java:S1488 "dImmediately return this expression instead of assigning it to the temporary variable "computerList".(Ö¾’…øÿÿÿÿ
+h	java:S116"NRename this field "TAG" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’ñ­±ÿÿÿÿÿ
+<
+java:S1170"!Make this final field static too.(’ñ­±ÿÿÿÿÿ
+B
+java:S1068"'Remove this unused "TAG" private field.(’ñ­±ÿÿÿÿÿ

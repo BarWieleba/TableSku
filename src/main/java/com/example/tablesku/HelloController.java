@@ -1,14 +1,19 @@
 package com.example.tablesku;
 
 import com.example.tablesku.allegroapi.entity.AuthTokenEntity;
+import com.example.tablesku.allegroapi.entity.ItemsEntity;
 import com.example.tablesku.allegroapi.entity.UserAuthEntity;
+import com.example.tablesku.allegroapi.exceptions.ErrorAndDescEntity;
 import com.example.tablesku.allegroapi.network.ConnectionAllegro;
+import com.example.tablesku.allegroapi.network.ConnectionAllegroDownload;
+import com.example.tablesku.dictionary.ConnectionDictionary;
 import com.example.tablesku.entity.Computer;
 import com.example.tablesku.entity.ComputerList;
 import com.example.tablesku.file.ClassReader;
 import com.example.tablesku.file.FileContentReader;
 import com.example.tablesku.network.ConnectionHelper;
 import com.example.tablesku.validators.ComputerValidator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -122,6 +127,7 @@ public class HelloController {
         importFromDb.addEventHandler(MouseEvent.MOUSE_CLICKED, chooseFile);
         exportToDb.addEventHandler(MouseEvent.MOUSE_CLICKED, saveFile);
         loginToAllegro.addEventHandler(MouseEvent.MOUSE_CLICKED, loginToAllegroAction);
+        downloadFromAllegro.addEventHandler(MouseEvent.MOUSE_CLICKED, downloadLaptopsFromAllegro);
 
         ClassReader classReader = new ClassReader(Computer.class);
         classReader.readClassMethods();
@@ -300,15 +306,20 @@ public class HelloController {
     private final EventHandler<MouseEvent> loginToAllegroAction = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent mouseEvent) {
-            token = loginToAllegroAPI();
+            try {
+                token = loginToAllegroAPI();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
             downloadFromAllegro.setDisable(false);
+
         }
     };
 
     private final EventHandler<MouseEvent> downloadLaptopsFromAllegro = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-
+            downloadLaptopsFromAllegroAPI();
         }
     };
 
@@ -329,48 +340,88 @@ public class HelloController {
         alert.showAndWait();
     }
 
-    private AuthTokenEntity loginToAllegroAPI() {
+    private AuthTokenEntity loginToAllegroAPI() throws Exception{
         ConnectionAllegro connectionAllegro = new ConnectionAllegro();
 
+        Map<String, Object> resultOfAuthorization = connectionAllegro.getUserAuthInfo();
+
+        int responseCodeFromAuth = (int)resultOfAuthorization.get(ConnectionDictionary.RESPONSE_CODE);
+
         UserAuthEntity userAuthEntity = null;
-        try {
-           userAuthEntity = connectionAllegro.getUserAuthInfo();
-        } catch (Exception e) {
-            e.printStackTrace();
+        ErrorAndDescEntity errorAndDescEntity = null;
+
+
+        if(responseCodeFromAuth == 200){
+            userAuthEntity = new ObjectMapper().readValue(String.valueOf(resultOfAuthorization.get(ConnectionDictionary.JSON_RESULT)), UserAuthEntity.class);
+            openBrowser(userAuthEntity);
+        } else {
+            errorAndDescEntity = new ObjectMapper().readValue(String.valueOf(resultOfAuthorization.get(ConnectionDictionary.JSON_RESULT)), ErrorAndDescEntity.class);
         }
 
-        if(userAuthEntity == null) {
-            return null;
-        }
-        try{
-            Runtime rt = Runtime.getRuntime();
-            String url = userAuthEntity.getVerificationUriComplete();
-            rt.exec("rundll32 url.dll,FileProtocolHandler " + url);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        final AuthTokenEntity[] authTokenEntity = {null};
 
-        UserAuthEntity finalUserAuthEntity = userAuthEntity;
-        Thread newThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                int i = 0;
-                while(i<12) {
-                    try {
-                        authTokenEntity[0] = connectionAllegro.getTokens(finalUserAuthEntity.getDeviceCode());
-                        if(Arrays.stream(authTokenEntity).findAny().isPresent()){
-                            break;
-                        }
-                        Thread.sleep(5000);
-                    } catch (Exception e) {
-                    }
-                    i++;
-                }
+        Map<String, Object> resultOfTokens = null;
+        AuthTokenEntity authTokenEntity = null;
+        ErrorAndDescEntity errorAndDescEntityToken = null;
+        int i = 0;
+        while(i<12) {
+            try{
+                resultOfTokens = connectionAllegro.getTokens(userAuthEntity.getDeviceCode());
+            } catch (Exception e) {
+                System.out.println("Problem: " + e.getMessage());
+
             }
-        });
-        newThread.start();
-        return authTokenEntity[0];
+
+
+            if(resultOfTokens !=null && (int)resultOfTokens.get(ConnectionDictionary.RESPONSE_CODE) == 200){
+                authTokenEntity = new ObjectMapper().readValue(String.valueOf(resultOfTokens.get(ConnectionDictionary.JSON_RESULT)), AuthTokenEntity.class);
+                System.out.println("Successfully connected!");
+                break;
+            } else if(resultOfTokens !=null && (int)resultOfTokens.get(ConnectionDictionary.RESPONSE_CODE) == 400) {
+                errorAndDescEntityToken = new ObjectMapper().readValue(String.valueOf(resultOfTokens.get(ConnectionDictionary.JSON_RESULT)), ErrorAndDescEntity.class);
+                switch (errorAndDescEntityToken.getError()) {
+                    case "authorization_pending": {
+                        System.out.println("Auth pending");
+                        break;
+                    }
+                    case "slow_down" : {
+                        System.out.println("Request come too often");
+                        break;
+                    }
+                    case "access_denied" : {
+                        System.out.println("Access denied");
+                        return null;
+                    }
+                    case "Invalid device code" : {
+                        System.out.println("Invalid device code");
+                        return null;
+                    }
+                    default: {
+                        return null;
+                    }
+                }
+
+            }
+            Thread.sleep(5000);
+            i++;
+        }
+
+
+        return authTokenEntity;
+    }
+
+    private void downloadLaptopsFromAllegroAPI() {
+        ConnectionAllegroDownload connectionAllegroDownload = new ConnectionAllegroDownload();
+        try {
+            Map<String, Object> laptopResults = connectionAllegroDownload.getLaptops(token);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void openBrowser(UserAuthEntity userAuthEntity) throws IOException{
+        Runtime rt = Runtime.getRuntime();
+        String url = userAuthEntity.getVerificationUriComplete();
+        rt.exec("rundll32 url.dll,FileProtocolHandler " + url);
     }
 }

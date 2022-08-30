@@ -1,5 +1,6 @@
 package com.example.tablesku.network;
 
+import com.example.tablesku.dictionary.ConnectionDictionary;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.BufferedReader;
@@ -86,16 +87,28 @@ public class ConnectionBean {
         return readData(br);
     }
 
-    public String postXWwwFormUrlEncodedLogin(String postfix, Map<String, Object> hashMap) throws IOException {
+    public HashMap<String, Object> postXWwwFormUrlEncodedLogin(String postfix, Map<String, Object> hashMap) throws IOException {
 
-        HttpURLConnection connection = openConnectionHeaders(postfix, hashMap);
-        if (connection.getResponseCode() != 200) {
-            throw new RuntimeException("Failed : HTTP error code : "
-                    + connection.getResponseCode());
-        }
+        HttpURLConnection connection = openPostConnectionHeaders(postfix, hashMap);
         BufferedReader br = new BufferedReader(new InputStreamReader(
                 (connection.getInputStream())));
-        return readData(br);
+        HashMap<String, Object> connectionResult = new HashMap<>();
+        connectionResult.put(ConnectionDictionary.RESPONSE_CODE, connection.getResponseCode());
+        connectionResult.put(ConnectionDictionary.JSON_RESULT, readData(br));
+
+        return connectionResult;
+    }
+
+    public HashMap<String, Object> getXWwwFormUrlEncodedLogin(String postfix, Map<String, Object> hashMap) throws IOException {
+
+        HttpURLConnection connection = openGETConnectionHeaders(postfix, hashMap);
+        BufferedReader br = new BufferedReader(new InputStreamReader(
+                (connection.getInputStream())));
+        HashMap<String, Object> connectionResult = new HashMap<>();
+        connectionResult.put(ConnectionDictionary.RESPONSE_CODE, connection.getResponseCode());
+        connectionResult.put(ConnectionDictionary.JSON_RESULT, readData(br));
+
+        return connectionResult;
     }
 
     private String postData(String input, String postfix) throws IOException {
@@ -140,11 +153,23 @@ public class ConnectionBean {
         return conn;
     }
 
-    private HttpURLConnection openConnectionHeaders(String postfix, Map<String, Object> headers) throws IOException {
+    private HttpURLConnection openPostConnectionHeaders(String postfix, Map<String, Object> headers) throws IOException {
         URL address = new URL(serverAddress + postfix);
         HttpURLConnection conn = (HttpURLConnection) address.openConnection();
         conn.setDoOutput(true);
         conn.setRequestMethod("POST");          //somehow android runtime sends all requests as POSTs even when request method is set to GET
+
+        headers.forEach((key, value) -> conn.setRequestProperty(key, value.toString()));
+        conn.setRequestProperty("charset", "utf-8");
+        conn.setUseCaches(false);
+        return conn;
+    }
+
+    private HttpURLConnection openGETConnectionHeaders(String postfix, Map<String, Object> headers) throws IOException {
+        URL address = new URL(serverAddress + postfix);
+        HttpURLConnection conn = (HttpURLConnection) address.openConnection();
+        conn.setDoOutput(true);
+        conn.setRequestMethod("GET");          //somehow android runtime sends all requests as POSTs even when request method is set to GET
 
         headers.forEach((key, value) -> conn.setRequestProperty(key, value.toString()));
         conn.setRequestProperty("charset", "utf-8");

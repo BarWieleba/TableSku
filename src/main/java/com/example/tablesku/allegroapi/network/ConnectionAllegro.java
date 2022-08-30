@@ -13,11 +13,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ConnectionAllegro {
     private final ObjectMapper objectMapper;
     private final ConnectionBean connectionBean;
-    private final String TAG = "ConnectionHelper";
+    private final String TAG = "ConnectionAllegro";
     private Wini ini;
 
 
@@ -32,22 +33,19 @@ public class ConnectionAllegro {
 
     }
 
-    public UserAuthEntity getUserAuthInfo() throws IOException{
+    public Map<String, Object> getUserAuthInfo() throws IOException{
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("Authorization", ini.get("auth_data", "Authorization"));
         hashMap.put("Content-Type", "application/x-www-form-urlencoded");
-        String json = connectionBean.postXWwwFormUrlEncodedLogin("/device?client_id=" + ini.get("auth_data", "ClientId"), hashMap);
-        UserAuthEntity userAuthEntity = objectMapper.readValue(json, UserAuthEntity.class);
-        return userAuthEntity;
+        HashMap<String, Object> result = connectionBean.postXWwwFormUrlEncodedLogin("/device?client_id=" + ini.get("auth_data", "ClientId"), hashMap);
+        return result;
     }
 
-    public AuthTokenEntity getTokens(String deviceCode) throws IOException {
+    public Map<String, Object> getTokens(String deviceCode) throws IOException {
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("Authorization", ini.get("auth_data", "Authorization"));
         hashMap.put("Content-Type", "application/x-www-form-urlencoded");
-        String json = connectionBean.postXWwwFormUrlEncodedLogin("/token?grant_type=urn:ietf:params:oauth:grant-type:device_code&device_code=" + deviceCode, hashMap);
-
-        AuthTokenEntity authTokenEntity = objectMapper.readValue(json, AuthTokenEntity.class);
-        return authTokenEntity;
+        HashMap<String, Object> result = connectionBean.postXWwwFormUrlEncodedLogin("/token?grant_type=urn:ietf:params:oauth:grant-type:device_code&device_code=" + deviceCode, hashMap);
+        return result;
     }
 }
